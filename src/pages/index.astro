@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Cursor   from '../components/Cursor.tsx';
+import Nav      from '../components/Nav.tsx';
+import Intro    from '../components/Intro.tsx';
+import Hero     from '../components/Hero.tsx';
+import Products from '../components/Products.tsx';
+import Features from '../components/Features.tsx';
+import Contact  from '../components/Contact.tsx';
+import Footer   from '../components/Footer.astro';
+
+import '../styles/global.css';
+---
+
+<Layout title="TriHexa | Коврики для авто, дома и гаража">
+  <!-- <Intro    client:load /> -->
+  <Cursor   client:load />
+  <Nav      client:load />
+  <main>
+    <Hero     client:load />
+    <Products client:load />
+    <Features client:load />
+    <Contact  client:load />
+  </main>
+  <Footer />
+</Layout>

@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Cursor      from '../components/Cursor.tsx';
+import Nav         from '../components/Nav.tsx';
+import ProductPage from '../components/ProductPage.tsx';
+import Footer      from '../components/Footer.astro';
+
+import '../styles/global.css';
+---
+
+<Layout title="TriHexa | Автоковрики">
+  <Cursor      client:load />
+  <Nav         client:load />
+  <main>
+    <ProductPage client:load category="car" />
+  </main>
+  <Footer />
+</Layout>

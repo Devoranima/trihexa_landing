@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables ─────────────────────────────────────── */
+:root {
+  --th-red:   #A80000;
+  --th-navy:  #1B263B;
+  --th-dark:  #1A1A1B;
+  --th-light: #F4F4F4;
+  --th-white: #FFFFFF;
+}
+
+/* ── Base ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--th-dark);
+  color: var(--th-light);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* restore cursor on touch */
+@media (hover: none) {
+  body { cursor: auto; }
+}
+
+/* ── Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--th-dark); }
+::-webkit-scrollbar-thumb { background: var(--th-red); border-radius: 2px; }
+
+/* ── Hex background pattern ────────────────────────────── */
+.hex-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zM28 100L0 84V50l28 16 28-16v34L28 100z' stroke='%23A80000' stroke-width='0.5' fill='none' opacity='0.12'/%3E%3C/svg%3E");
+}
+
+/* ── Grid overlay (technical drawing aesthetic) ────────── */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(168,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168,0,0,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── Section clip-paths ────────────────────────────────── */
+.clip-diagonal-b {
+  clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+}
+.clip-diagonal-t {
+  clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%);
+}
+
+/* ── Red accent line sweep ─────────────────────────────── */
+.line-sweep {
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+/* ── Marquee ───────────────────────────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-inner {
+  animation: marquee 28s linear infinite;
+  white-space: nowrap;
+}
+
+/* ── Glitch text ───────────────────────────────────────── */
+.glitch {
+  position: relative;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+.glitch:hover::before {
+  animation: glitch-r 0.5s steps(4) forwards;
+  color: var(--th-red);
+  clip-path: inset(30% 0 50% 0);
+}
+.glitch:hover::after {
+  animation: glitch-l 0.5s steps(4) forwards;
+  color: var(--th-light);
+  clip-path: inset(55% 0 25% 0);
+}
+@keyframes glitch-r {
+  0%   { opacity: 1; transform: translateX(-4px); }
+  33%  { transform: translateX(4px); }
+  66%  { transform: translateX(-2px); }
+  100% { opacity: 0; }
+}
+@keyframes glitch-l {
+  0%   { opacity: 1; transform: translateX(4px); }
+  33%  { transform: translateX(-4px); }
+  66%  { transform: translateX(2px); }
+  100% { opacity: 0; }
+}
+
+/* ── Magnetic button ───────────────────────────────────── */
+.mag-btn {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ── Product panel hover ───────────────────────────────── */
+.product-panel {
+  transition: background-color 0.5s ease;
+}
+.product-panel:hover .panel-number {
+  opacity: 0.12;
+  transform: scale(1.05);
+}
+
+/* ── Feature card border animation ────────────────────── */
+.feature-card {
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--th-red);
+  transition: width 0.4s ease;
+}
+.feature-card:hover::before { width: 100%; }
+
+/* ── Utility: visually hidden ──────────────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
+}
+
+/* ── Film grain overlay ────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: grain 0.5s steps(1) infinite;
+}
+
+@keyframes grain {
+  0%  { transform: translate(0,    0);    }
+  10% { transform: translate(-5%,  -5%);  }
+  20% { transform: translate(-10%, 3%);   }
+  30% { transform: translate(5%,   -12%); }
+  40% { transform: translate(-3%,  12%);  }
+  50% { transform: translate(-8%,  5%);   }
+  60% { transform: translate(10%,  0);    }
+  70% { transform: translate(0,    8%);   }
+  80% { transform: translate(2%,   15%);  }
+  90% { transform: translate(-6%,  5%);   }
+  100%{ transform: translate(5%,   0);    }
+}
+
+/* ── Scramble text ─────────────────────────────────────── */
+.scramble-target {
+  font-variant-numeric: tabular-nums;
+}
