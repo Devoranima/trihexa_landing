@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 
-/* ── Shaders ─────────────────────────────────────────────── */
+/* shaders */
 
 const VERT = /* glsl */ `
 varying vec2 vUv;
@@ -110,7 +110,7 @@ void main() {
 }
 `;
 
-/* ── Component ───────────────────────────────────────────── */
+/* component */
 
 export default function CubeScene() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -119,7 +119,7 @@ export default function CubeScene() {
     const container = containerRef.current;
     if (!container) return;
 
-    // ── Renderer ──────────────────────────────────────────
+    // renderer
     const renderer = new THREE.WebGLRenderer({
       alpha: true, antialias: true, premultipliedAlpha: false,
     });
@@ -129,7 +129,7 @@ export default function CubeScene() {
     renderer.domElement.style.display = 'block';
     container.appendChild(renderer.domElement);
 
-    // ── Scene / Camera ────────────────────────────────────
+    // scene / camera
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
       50, container.clientWidth / container.clientHeight, 0.1, 100,
@@ -137,7 +137,7 @@ export default function CubeScene() {
     camera.position.set(0, 0.6, 5.5);
     camera.lookAt(1.5, 0, 0);
 
-    // ── Shared uniforms ───────────────────────────────────
+    // shared uniforms
     const uTime   = { value: 0 };
     const uGlitch = { value: 0 };
 
@@ -154,9 +154,9 @@ export default function CubeScene() {
       return m;
     }
 
-    // ── Cube faces ────────────────────────────────────────
+    // cube faces
     // 6 PlaneGeometry faces positioned like a box.
-    // Primary faces use icon-exact colors; secondary faces are very dark.
+    // primary faces use icon-exact colors; secondary faces are very dark.
     const faceGeo = new THREE.PlaneGeometry(2, 2);
     const cubeGroup = new THREE.Group();
     cubeGroup.position.x = 1.5;
@@ -184,21 +184,21 @@ export default function CubeScene() {
       }
     }
 
-    // Primary (icon colors) — each face shows a different product texture
-    addFace(0xE80000,  0,  1,  0, -Math.PI / 2, 0, 0, true, 1);  // +Y top: honeycomb EVA cells
-    addFace(0xC40000,  0,  0,  1,  0, 0, 0,            true, 3);  // +Z front: anti-slip dome nubs
-    addFace(0xD60000,  1,  0,  0,  0, Math.PI / 2, 0,  true, 2);  // +X right: diamond ridges
-    // Secondary (dark interior sides)
-    addFace(0x4A0000,  0, -1,  0,  Math.PI / 2, 0, 0,  false); // -Y bottom
-    addFace(0x550000,  0,  0, -1,  0, Math.PI, 0,       false); // -Z back
-    addFace(0x480000, -1,  0,  0,  0, -Math.PI / 2, 0,  false); // -X left
+    // primary
+    addFace(0xE80000, 0, 1, 0, -Math.PI / 2, 0, 0, true, 1);  // +Y top: honeycomb EVA cells
+    addFace(0xC40000, 0, 0, 1, 0, 0, 0, true, 3);  // +Z front: anti-slip dome nubs
+    addFace(0xD60000, 1, 0, 0, 0, Math.PI / 2, 0, true, 2);  // +X right: diamond ridges
+    // secondary
+    addFace(0x6A0000, 0, -1, 0, Math.PI / 2, 0, 0, false); // -Y bottom
+    addFace(0x750000, 0, 0, -1, 0, Math.PI, 0, false); // -Z back
+    addFace(0x680000, -1, 0, 0, 0, -Math.PI / 2, 0, false); // -X left
 
-    // Isometric rotation (matches logo angle)
+    // isometric rotation
     cubeGroup.rotation.x = 0.54;
     cubeGroup.rotation.y = Math.PI / 4;
     scene.add(cubeGroup);
 
-    // ── Edge wireframe (stays fixed — reveals skeleton on separation) ──
+    // edge wireframe
     const edgeGeo = new THREE.EdgesGeometry(new THREE.BoxGeometry(2, 2, 2));
     const edgeMat = new THREE.LineBasicMaterial({
       color: 0xffffff, transparent: true, opacity: 0.5,
@@ -206,7 +206,7 @@ export default function CubeScene() {
     });
     cubeGroup.add(new THREE.LineSegments(edgeGeo, edgeMat));
 
-    // ── Ghost wireframe (larger, subtle echo) ──
+    // ghost wireframe
     const ghostEdgeGeo = new THREE.EdgesGeometry(new THREE.BoxGeometry(2.2, 2.2, 2.2));
     const ghostMat = new THREE.LineBasicMaterial({
       color: 0xA80000, transparent: true, opacity: 0.1,
@@ -214,19 +214,45 @@ export default function CubeScene() {
     });
     cubeGroup.add(new THREE.LineSegments(ghostEdgeGeo, ghostMat));
 
-    // ── Inner glow (visible when faces separate) ──
-    const innerGlowMat = new THREE.MeshBasicMaterial({
-      color: 0xffffff, transparent: true, opacity: 1,
-      blending: THREE.AdditiveBlending,
+    // // inner glow
+    // const innerGlowMat = new THREE.MeshBasicMaterial({
+    //   color: 0xffffff, transparent: true, opacity: 1,
+    //   blending: THREE.AdditiveBlending,
+    // });
+
+    // const innerGlowGeo = new THREE.SphereGeometry(0.3, 12, 12);
+    // // const innerGlowGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+    // cubeGroup.add(new THREE.Mesh(innerGlowGeo, innerGlowMat));
+
+    const glowLayers = [
+      { scale: 1.0, opacity: 1.0 },
+      { scale: 1.5, opacity: 0.4 },
+      { scale: 2.0, opacity: 0.15 },
+      { scale: 2.8, opacity: 0.05 },
+    ];
+
+    const baseGeo = new THREE.SphereGeometry(0.3, 16, 16);
+
+    let glowMeshes: THREE.Mesh[] = []
+
+    glowLayers.forEach(({ scale, opacity }) => {
+      const mat = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,   // critical — prevents glow layers from occluding each other
+        side: THREE.BackSide, // optional for outer layers, gives softer edge
+      });
+      const mesh = new THREE.Mesh(baseGeo, mat);
+      glowMeshes.push(mesh)
+      mesh.scale.setScalar(scale);
+      cubeGroup.add(mesh);
     });
 
-    const innerGlowGeo = new THREE.SphereGeometry(0.3, 12, 12);
-    // const innerGlowGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
-    cubeGroup.add(new THREE.Mesh(innerGlowGeo, innerGlowMat));
-
-    // ── Particles (reduced, intentional) ──
+    // particles
     const pp: number[] = [];
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 100; i++) {
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
       const r = 3.2 + Math.random() * 2.8;
@@ -239,19 +265,19 @@ export default function CubeScene() {
     const particleGeo = new THREE.BufferGeometry();
     particleGeo.setAttribute('position', new THREE.Float32BufferAttribute(pp, 3));
     const particleMat = new THREE.PointsMaterial({
-      color: 0x991100, size: 0.025, transparent: true, opacity: 0.5,
+      color: 0x991100, size: 0.025, transparent: true, opacity: 0.7,
       blending: THREE.AdditiveBlending,
     });
     const particles = new THREE.Points(particleGeo, particleMat);
     scene.add(particles);
 
-    // ── Entrance ──
+    // entrance
     cubeGroup.scale.setScalar(0);
     const scaleTween = gsap.to(cubeGroup.scale, {
       x: 1, y: 1, z: 1, duration: 2, delay: 1.2, ease: 'elastic.out(1, 0.55)',
     });
 
-    // ── Mouse tracking ──
+    // mouse tracking
     let mouseX = 0, mouseY = 0;
     const onMouse = (e: MouseEvent) => {
       mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -259,14 +285,14 @@ export default function CubeScene() {
     };
     window.addEventListener('mousemove', onMouse);
 
-    // ── Animation state ──
-    let autoY   = Math.PI / 4;
+    // animation state
+    let autoY = Math.PI / 4;
     let curRotX = 0.54;
     let curRotY = Math.PI / 4;
-    let curSep  = 0;
-    let t       = 0;
+    let curSep = 0;
+    let t = 0;
     let rafId: number;
-    let lastGlitch  = performance.now();
+    let lastGlitch = performance.now();
     let nextGlitchIn = 3500 + Math.random() * 3000;
 
     function animate() {
@@ -274,7 +300,7 @@ export default function CubeScene() {
       t += 0.016;
       autoY += 0.004;
 
-      // Rotation w/ parallax
+      // rotation w/ parallax
       curRotX += (0.54 + mouseX * 0.2 - curRotX) * 0.04;
       curRotY += (autoY + mouseY * 0.35 - curRotY) * 0.04;
       cubeGroup.rotation.x = curRotX;
@@ -289,9 +315,13 @@ export default function CubeScene() {
       for (const f of primaryFaces) {
         f.mesh.position.copy(f.basePos).addScaledVector(f.dir, curSep);
       }
-      innerGlowMat.opacity = curSep * 2.5;
+      // innerGlowMat.opacity = curSep * 3;
+      glowMeshes.forEach((mesh, i) => {
+        mesh.scale.setScalar(glowLayers[i].scale * curSep*3.2);
+        mesh.material.opacity = glowLayers[i].opacity * curSep*3.5;
+      });
 
-      // Glitch trigger
+      // glitch trigger
       const now = performance.now();
       if (now - lastGlitch > nextGlitchIn) {
         lastGlitch = now;
@@ -300,13 +330,13 @@ export default function CubeScene() {
       }
       if (uGlitch.value > 0) uGlitch.value = Math.max(0, uGlitch.value - 0.06);
 
-      // Update shared uniforms
+      // update shared uniforms
       uTime.value = t;
 
-      // Edge pulse
+      // edge pulse
       edgeMat.opacity = 0.35 + Math.sin(t) * 0.15;
 
-      // Particles drift
+      // particles drift
       particles.rotation.y += 0.002;
       particles.rotation.x += 0.0005;
 
@@ -314,7 +344,7 @@ export default function CubeScene() {
     }
     animate();
 
-    // ── Resize ──
+    // resize
     const ro = new ResizeObserver(() => {
       const w = container.clientWidth;
       const h = container.clientHeight;
@@ -324,7 +354,7 @@ export default function CubeScene() {
     });
     ro.observe(container);
 
-    // ── Cleanup ──
+    // cleanup
     return () => {
       cancelAnimationFrame(rafId);
       scaleTween.kill();
@@ -336,8 +366,8 @@ export default function CubeScene() {
       edgeMat.dispose();
       ghostEdgeGeo.dispose();
       ghostMat.dispose();
-      innerGlowGeo.dispose();
-      innerGlowMat.dispose();
+      // innerGlowGeo.dispose();
+      // innerGlowMat.dispose();
       particleGeo.dispose();
       particleMat.dispose();
       renderer.dispose();
