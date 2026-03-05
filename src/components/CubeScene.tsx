@@ -65,7 +65,7 @@ float getHeight(vec2 uv) {
     float nub = smoothstep(0.22, 0.0, d);
     return nub * nub;
   }
-  return 0.0;
+  return 0.5;
 }
 
 void main() {
@@ -233,7 +233,7 @@ export default function CubeScene() {
 
     const baseGeo = new THREE.SphereGeometry(0.3, 16, 16);
 
-    let glowMeshes: THREE.Mesh[] = []
+    let glowMats: THREE.MeshBasicMaterial[] = []
 
     glowLayers.forEach(({ scale, opacity }) => {
       const mat = new THREE.MeshBasicMaterial({
@@ -245,7 +245,7 @@ export default function CubeScene() {
         side: THREE.BackSide, // optional for outer layers, gives softer edge
       });
       const mesh = new THREE.Mesh(baseGeo, mat);
-      glowMeshes.push(mesh)
+      glowMats.push(mat);
       mesh.scale.setScalar(scale);
       cubeGroup.add(mesh);
     });
@@ -316,9 +316,9 @@ export default function CubeScene() {
         f.mesh.position.copy(f.basePos).addScaledVector(f.dir, curSep);
       }
       // innerGlowMat.opacity = curSep * 3;
-      glowMeshes.forEach((mesh, i) => {
-        mesh.scale.setScalar(glowLayers[i].scale * curSep*3.2);
-        mesh.material.opacity = glowLayers[i].opacity * curSep*3.5;
+      glowMats.forEach((mat, i) => {
+        // mesh.scale.setScalar(glowLayers[i].scale * curSep*3.2);
+        mat.opacity = glowLayers[i].opacity * curSep*3.5;
       });
 
       // glitch trigger

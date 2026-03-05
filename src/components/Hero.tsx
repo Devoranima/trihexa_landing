@@ -23,9 +23,9 @@ export default function Hero() {
         { scaleY: 0, transformOrigin: 'top center' },
         { scaleY: 1, duration: 1.1, ease: 'power3.out' }, 0);
 
-      tl.fromTo(accentBRef.current,
-        { scaleY: 0, transformOrigin: 'bottom center' },
-        { scaleY: 1, duration: 0.9, ease: 'power3.out' }, 0.2);
+      // tl.fromTo(accentBRef.current,
+      //   { scaleY: 0, transformOrigin: 'bottom center' },
+      //   { scaleY: 1, duration: 0.9, ease: 'power3.out' }, 0.2);
 
       /* eyebrow */
       tl.fromTo(eyebrowRef.current,
@@ -81,7 +81,7 @@ export default function Hero() {
       <div className="absolute inset-0 grid-pattern opacity-5 z-0" />
 
       {/* left gradient overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-th-dark via-th-dark/65 to-transparent z-20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-th-dark via-th-dark/75 md:via-th-dark/65 to-transparent z-20" />
 
       {/* radial vignette */}
       {/* !fix */}
@@ -99,7 +99,7 @@ export default function Hero() {
 
       {/* text overlay */}
       <div className="absolute inset-0 flex items-center pointer-events-none z-30">
-        <div className="w-full max-w-7xl mx-auto px-6 lg:px-16 pt-28 pb-20 pointer-events-auto" style={{ maxWidth: '52%', paddingLeft: 'clamp(1.5rem, 4vw, 4rem)' }}>
+        <div className="w-full md:max-w-[52%] mx-auto px-6 lg:px-16 pt-28 pb-20 pointer-events-auto" style={{ paddingLeft: 'clamp(1.5rem, 4vw, 4rem)' }}>
 
           {/* eyebrow */}
           <div ref={eyebrowRef} className="flex items-center gap-4 mb-5">
