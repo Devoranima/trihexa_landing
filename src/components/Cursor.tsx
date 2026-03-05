@@ -6,10 +6,14 @@ export default function Cursor() {
   const ringRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if ('ontouchstart' in window) return;
+    if (window.matchMedia('(hover: none)').matches) return;
 
     const dot  = dotRef.current!;
     const ring = ringRef.current!;
+
+    // show cursor elements (hidden by default for mobile)
+    dot.style.display = 'block';
+    ring.style.display = 'block';
 
     let mouseX = -100, mouseY = -100;
     let ringX  = -100, ringY  = -100;
@@ -29,12 +33,13 @@ export default function Cursor() {
     };
 
     const enter = () => {
-      gsap.to(ring, { scale: 2,   borderColor: '#A80000',             duration: 0.25 });
-      gsap.to(dot,  { scale: 0,                                        duration: 0.25 });
+      gsap.to(ring, { scale: 1.3, borderColor: '#A80000', duration: 0.25 });
+      gsap.to(dot, { scale: 0, duration: 0.25 });
     };
+
     const leave = () => {
-      gsap.to(ring, { scale: 1,   borderColor: 'rgba(244,244,244,0.5)', duration: 0.25 });
-      gsap.to(dot,  { scale: 1,                                          duration: 0.25 });
+      gsap.to(ring, { scale: 1, borderColor: 'rgba(244,244,244,0.5)', duration: 0.25 });
+      gsap.to(dot, { scale: 1, duration: 0.25 });
     };
 
     window.addEventListener('mousemove', onMove);
@@ -49,6 +54,8 @@ export default function Cursor() {
     return () => {
       window.removeEventListener('mousemove', onMove);
       cancelAnimationFrame(raf);
+      dot.style.display = 'none';
+      ring.style.display = 'none';
     };
   }, []);
 
@@ -59,6 +66,7 @@ export default function Cursor() {
     borderRadius: '50%',
     pointerEvents: 'none',
     willChange: 'transform',
+    display: 'none',
   };
 
   return (

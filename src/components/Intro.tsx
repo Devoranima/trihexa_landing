@@ -3,10 +3,10 @@ import { gsap } from 'gsap';
 
 export default function Intro() {
   const overlayRef = useRef<HTMLDivElement>(null);
-  const logoRef    = useRef<HTMLImageElement>(null);
-  const lineRef    = useRef<HTMLDivElement>(null);
-  const titleRef   = useRef<HTMLDivElement>(null);
-  const tagRef     = useRef<HTMLParagraphElement>(null);
+  const logoRef = useRef<HTMLImageElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const tagRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     const overlay = overlayRef.current;
@@ -21,7 +21,7 @@ export default function Intro() {
       },
     });
 
-    // 1. Logo: scale + rotate in
+    // logo
     tl.fromTo(
       logoRef.current,
       { scale: 0, rotation: 180, opacity: 0 },
@@ -29,7 +29,7 @@ export default function Intro() {
       0,
     );
 
-    // 2. Red line sweeps left → right
+    // red line
     tl.fromTo(
       lineRef.current,
       { scaleX: 0 },
@@ -37,7 +37,7 @@ export default function Intro() {
       0.8,
     );
 
-    // 3. Title chars stagger in
+    // title chars
     const chars = titleRef.current?.querySelectorAll('.intro-char') ?? [];
     tl.fromTo(
       chars,
@@ -46,7 +46,7 @@ export default function Intro() {
       1.0,
     );
 
-    // 4. Tagline fades in
+    // tagline 
     tl.fromTo(
       tagRef.current,
       { opacity: 0, y: 10 },
@@ -54,7 +54,7 @@ export default function Intro() {
       1.8,
     );
 
-    // 5. Clip-path wipe upward
+    // clip-path wipe 
     tl.to(
       overlay,
       {
@@ -86,7 +86,7 @@ export default function Intro() {
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
       }}
     >
-      {/* Logo */}
+      {/* logo */}
       <img
         ref={logoRef}
         src="/ICON.svg"
@@ -94,7 +94,7 @@ export default function Intro() {
         style={{ width: 80, height: 80, marginBottom: 24, opacity: 0 }}
       />
 
-      {/* Red sweep line */}
+      {/* red sweep line */}
       <div
         ref={lineRef}
         style={{
@@ -107,7 +107,7 @@ export default function Intro() {
         }}
       />
 
-      {/* Title */}
+      {/* title */}
       <div ref={titleRef} style={{ display: 'flex', overflow: 'hidden' }}>
         {'TRIHEXA'.split('').map((char, i) => (
           <span
@@ -127,7 +127,7 @@ export default function Intro() {
         ))}
       </div>
 
-      {/* Tagline */}
+      {/* tagline */}
       <p
         ref={tagRef}
         style={{

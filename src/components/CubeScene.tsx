@@ -27,37 +27,80 @@ uniform vec3 uColor;
 uniform float uGlitch;
 uniform float uPattern;
 
+/* Hex cell distance */
+float hexDist(vec2 p) {
+  p = abs(p);
+  return max(dot(p, vec2(0.866025, 0.5)), p.y);
+}
+
+/* Height field for volumetric surface patterns */
+float getHeight(vec2 uv) {
+  if (uPattern > 0.5 && uPattern < 1.5) {
+    // ── Honeycomb EVA cells ──
+    float sc = 12.0;
+    vec2 s = vec2(1.0, 1.732);
+    vec2 h = s * 0.5;
+    vec2 a = mod(uv * sc, s) - h;
+    vec2 b = mod(uv * sc - h, s) - h;
+    vec2 gv = dot(a, a) < dot(b, b) ? a : b;
+    float d = hexDist(gv);
+    float wall = smoothstep(0.44, 0.37, d);
+    float top  = smoothstep(0.37, 0.28, d);
+    return mix(wall * 0.4, 1.0, top);
+  }
+  if (uPattern > 1.5 && uPattern < 2.5) {
+    // ── Diamond / rhombus ridges ──
+    float sc = 10.0;
+    vec2 d = fract(uv * sc) - 0.5;
+    float dm = abs(d.x) + abs(d.y);
+    float cell  = smoothstep(0.48, 0.38, dm);
+    float bevel = smoothstep(0.38, 0.22, dm);
+    return mix(cell * 0.35, 1.0, bevel);
+  }
+  if (uPattern > 2.5) {
+    // ── Anti-slip dome nubs ──
+    float sc = 9.0;
+    vec2 cell = fract(uv * sc) - 0.5;
+    float d = length(cell);
+    float nub = smoothstep(0.22, 0.0, d);
+    return nub * nub;
+  }
+  return 0.0;
+}
+
 void main() {
   vec3 col = uColor;
+  if (!gl_FrontFacing) col *= 0.25;
 
-  // Interior (back face) is much darker
-  if (!gl_FrontFacing) col *= 0.3;
+  // ── Volumetric pattern ──
+  float h = getHeight(vUv);
 
-  // ── 3D mat surface texture ──
-  float pat = 0.0;
+  // Fake normals from height-field derivatives
+  float hx = dFdx(h);
+  float hy = dFdy(h);
+  vec3 N = normalize(vec3(-hx * 18.0, -hy * 18.0, 1.0));
 
-  if (uPattern > 0.5 && uPattern < 1.5) {                                                         
-    // Wavy zigzag channels (car floor mat)                                                       
-    float w = sin(vUv.x * 15.7) * 0.35;                                                           
-    float ch = abs(fract(vUv.y * 5.0 + w) - 0.5) * 2.0;                                           
-    pat = 1.0 - smoothstep(0.0, 0.25, ch);                                                        
-  } else if (uPattern > 1.5 && uPattern < 2.5) {                                                  
-    // Diagonal parallel grooves (car mat edge zones)                                             
-    float ru = vUv.x * 0.707 - vUv.y * 0.707;                                                     
-    float gr = abs(fract(ru * 7.0) - 0.5) * 2.0;                                                  
-    pat = 1.0 - smoothstep(0.0, 0.15, gr);                                                        
-  } else if (uPattern > 2.5) {                                                                    
-    // Dot grid (trunk mat)                                                                       
-    vec2 dc = fract(vUv * 7.0) - 0.5;                                                             
-    pat = 1.0 - smoothstep(0.12, 0.18, length(dc));                                               
-  }                                                                                               
-  // Apply as subtle emboss relief                                                                
-  col *= 1.0 - pat * 0.15;                                                                        
-  col += pat * 0.03;
+  // Directional light (upper-right-front)
+  vec3 L = normalize(vec3(0.4, 0.65, 1.0));
+  float diff = max(dot(N, L), 0.0);
 
-  // Edge highlight
+  // Specular (Blinn-Phong)
+  vec3 V = vec3(0.0, 0.0, 1.0);
+  vec3 H = normalize(L + V);
+  float spec = pow(max(dot(N, H), 0.0), 40.0);
+
+  // Ambient occlusion in grooves
+  float ao = 0.45 + 0.55 * h;
+
+  // Compose lighting
+  col = col * (0.22 + diff * 0.7) * ao + vec3(spec * 0.18);
+
+  // Extra groove darkening for depth
+  col = mix(col * 0.55, col, smoothstep(0.0, 0.5, h));
+
+  // Face edge highlight
   float edge = min(min(vUv.x, 1.0 - vUv.x), min(vUv.y, 1.0 - vUv.y));
-  col += smoothstep(0.04, 0.0, edge) * 0.18;
+  col += smoothstep(0.04, 0.0, edge) * 0.12;
 
   // Glitch: chromatic-style color shift
   col.r += sin(vUv.y * 40.0 + uTime * 40.0) * 0.15 * uGlitch;
@@ -77,9 +120,13 @@ export default function CubeScene() {
     if (!container) return;
 
     // ── Renderer ──────────────────────────────────────────
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    const renderer = new THREE.WebGLRenderer({
+      alpha: true, antialias: true, premultipliedAlpha: false,
+    });
+    renderer.setClearColor(0x000000, 0);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.domElement.style.display = 'block';
     container.appendChild(renderer.domElement);
 
     // ── Scene / Camera ────────────────────────────────────
@@ -138,9 +185,9 @@ export default function CubeScene() {
     }
 
     // Primary (icon colors) — each face shows a different product texture
-    addFace(0xE80000,  0,  1,  0, -Math.PI / 2, 0, 0, true, 1);  // +Y top: wavy channels (car mat)
-    addFace(0xC40000,  0,  0,  1,  0, 0, 0,            true, 3);  // +Z front: dot grid (trunk mat)
-    addFace(0xD60000,  1,  0,  0,  0, Math.PI / 2, 0,  true, 2);  // +X right: diagonal grooves
+    addFace(0xE80000,  0,  1,  0, -Math.PI / 2, 0, 0, true, 1);  // +Y top: honeycomb EVA cells
+    addFace(0xC40000,  0,  0,  1,  0, 0, 0,            true, 3);  // +Z front: anti-slip dome nubs
+    addFace(0xD60000,  1,  0,  0,  0, Math.PI / 2, 0,  true, 2);  // +X right: diamond ridges
     // Secondary (dark interior sides)
     addFace(0x4A0000,  0, -1,  0,  Math.PI / 2, 0, 0,  false); // -Y bottom
     addFace(0x550000,  0,  0, -1,  0, Math.PI, 0,       false); // -Z back
@@ -173,8 +220,8 @@ export default function CubeScene() {
       blending: THREE.AdditiveBlending,
     });
 
-    // const innerGlowGeo = new THREE.SphereGeometry(0.6, 12, 12);
-    const innerGlowGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
+    const innerGlowGeo = new THREE.SphereGeometry(0.3, 12, 12);
+    // const innerGlowGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
     cubeGroup.add(new THREE.Mesh(innerGlowGeo, innerGlowMat));
 
     // ── Particles (reduced, intentional) ──
@@ -300,5 +347,5 @@ export default function CubeScene() {
     };
   }, []);
 
-  return <div ref={containerRef} className="absolute inset-0" style={{ pointerEvents: 'none' }} />;
+  return <div ref={containerRef} className="absolute inset-0 z-10" style={{ pointerEvents: 'none' }} />;
 }

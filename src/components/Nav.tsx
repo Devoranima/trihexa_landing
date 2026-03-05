@@ -2,25 +2,25 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
 const PRODUCT_LINKS = [
-  { label: 'Автоковрики',       href: '/car'    },
-  { label: 'Домашние коврики',  href: '/home'   },
-  { label: 'Гаражные системы',  href: '/garage' },
+  {label: 'Автоковрики', href: '/car'},
+  {label: 'Домашние коврики', href: '/home'},
+  {label: 'Гаражные системы', href: '/garage'},
 ] as const;
 
 const NAV_LINKS = [
-  { label: 'Преимущества',  href: '/#features' },
-  { label: 'Контакты',      href: '/#contact'  },
+  {label: 'Преимущества', href: '/#features'},
+  {label: 'Контакты', href: '/#contact'},
 ] as const;
 
 export default function Nav() {
-  const [scrolled,     setScrolled]     = useState(false);
-  const [showTop,      setShowTop]      = useState(false);
-  const [menuOpen,     setMenuOpen]     = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [showTop, setShowTop] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const mobileRef   = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  /* ── Scroll listener ──────────────────────────────────── */
+  /* scroll listener */
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 60);
@@ -30,7 +30,7 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  /* ── Close dropdown on click outside ───────────────────── */
+  /* close dropdown on click outside */
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
@@ -41,7 +41,7 @@ export default function Nav() {
     return () => document.removeEventListener('mousedown', handler);
   }, []);
 
-  /* ── Mobile menu animation ────────────────────────────── */
+  /* mobile menu animation */
   useEffect(() => {
     const el = mobileRef.current;
     if (!el) return;
@@ -59,7 +59,10 @@ export default function Nav() {
     }
   }, [menuOpen]);
 
-  const close = () => { setMenuOpen(false); setDropdownOpen(false); };
+  const close = () => {
+    setMenuOpen(false); 
+    setDropdownOpen(false);
+  };
 
   /* shared link style */
   const linkCls = 'relative text-th-light/60 hover:text-th-white text-xs tracking-[0.3em] uppercase font-medium transition-colors duration-200 py-1';
@@ -67,13 +70,13 @@ export default function Nav() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 ${
           scrolled ? 'bg-th-dark/95 backdrop-blur-md border-b border-th-red/15' : 'bg-transparent'
         }`}
       >
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
 
-          {/* Logo */}
+          {/* logo */}
           <a href="/" className="flex items-center gap-3 group shrink-0">
             <img
               src="/ICON.svg"
@@ -81,14 +84,14 @@ export default function Nav() {
               className="w-9 h-9 transition-transform duration-300 group-hover:scale-110"
             />
             <span className="font-display text-[1.6rem] text-th-white tracking-[0.22em] leading-none">
-              TRIHEXA
+              TRiHEXA
             </span>
           </a>
 
-          {/* Desktop nav */}
+          {/* desktop nav */}
           <nav className="hidden md:flex items-center gap-10">
 
-            {/* ── Продукция + dropdown ────────────────────── */}
+            {/* products + dropdown */}
             <div ref={dropdownRef} className="relative">
               <div className="flex items-center gap-1">
                 <a href="/#products" className={`${linkCls} group`}>
@@ -110,7 +113,7 @@ export default function Nav() {
                 </button>
               </div>
 
-              {/* Dropdown panel */}
+              {/* dropdown panel */}
               <div
                 className={`absolute top-full left-0 mt-3 min-w-[200px] border border-th-white/8 bg-th-dark/95 backdrop-blur-md transition-all duration-200 ${
                   dropdownOpen
@@ -133,7 +136,7 @@ export default function Nav() {
               </div>
             </div>
 
-            {/* ── Other nav links ─────────────────────────── */}
+            {/* other nav links */}
             {NAV_LINKS.map(link => (
               <a key={link.href} href={link.href} className={`${linkCls} group`}>
                 {link.label}
@@ -149,7 +152,7 @@ export default function Nav() {
             </a>
           </nav>
 
-          {/* Hamburger */}
+          {/* hamburger */}
           <button
             className="md:hidden flex flex-col gap-[5px] p-2 shrink-0"
             onClick={() => setMenuOpen(v => !v)}
@@ -161,13 +164,13 @@ export default function Nav() {
           </button>
         </div>
 
-        {/* Mobile menu */}
+        {/* mobile menu */}
         <div
           ref={mobileRef}
           style={{ display: 'none' }}
           className="md:hidden flex-col gap-6 bg-th-dark/98 backdrop-blur-md border-t border-th-red/20 px-8 py-10"
         >
-          {/* Products parent + sub-links */}
+          {/* products parent + sub-links */}
           <a
             href="/#products"
             onClick={close}
@@ -188,7 +191,7 @@ export default function Nav() {
             ))}
           </div>
 
-          {/* Other links */}
+          {/* other links */}
           {NAV_LINKS.map(link => (
             <a
               key={link.href}
@@ -209,10 +212,10 @@ export default function Nav() {
         </div>
       </header>
 
-      {/* ── Scroll to top ────────────────────────────────────── */}
+      {/* scroll to top */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`fixed bottom-6 right-6 z-50 w-10 h-10 border border-th-red/40 bg-th-dark/80 backdrop-blur-sm text-th-red hover:bg-th-red hover:text-white flex items-center justify-center transition-all duration-300 ${
+        className={`fixed bottom-6 right-6 z-50 w-20 h-20 border border-th-red/40 bg-th-dark/80 backdrop-blur-sm text-th-red hover:bg-th-red hover:text-white flex items-center justify-center transition-all duration-300 ${
           showTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 pointer-events-none'
         }`}
         aria-label="Наверх"
