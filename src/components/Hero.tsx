@@ -115,7 +115,7 @@ export default function Hero() {
               className="font-['Oswald'] font-medium leading-none text-th-white"
               style={{ fontSize: 'clamp(5rem, 13vw, 12rem)' }}
             >
-              TRi<span className="text-th-red">HEXA</span>
+              TR<span className='logo-i'>i</span>HEXA
             </h1>
           </div>
 

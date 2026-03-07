@@ -108,11 +108,11 @@ export default function Intro() {
       />
 
       {/* title */}
-      <div ref={titleRef} style={{ display: 'flex', overflow: 'hidden' }}>
+      <div ref={titleRef} style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
         {'TRiHEXA'.split('').map((char, i) => (
           <span
             key={i}
-            className="intro-char"
+            className={char == 'i' ? "intro-char logo-i" : "intro-char"}
             style={{
               fontFamily: "'Oswald', cursive",
               fontWeight: "500",

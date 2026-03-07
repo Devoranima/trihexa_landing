@@ -84,7 +84,7 @@ export default function Nav() {
               className="w-9 h-9 transition-transform duration-300 group-hover:scale-110"
             />
             <span className="font-['Oswald'] font-medium text-[1.6rem] text-th-white tracking-[0.1em] leading-none">
-              TRiHEXA
+              TR<span className='logo-i'>i</span>HEXA
             </span>
           </a>
 
