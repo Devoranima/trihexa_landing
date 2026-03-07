@@ -1,16 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Cursor      from '../components/Cursor.tsx';
-import Nav         from '../components/Nav.tsx';
+import Cursor from '../components/Cursor.tsx';
+import Nav from '../components/Nav.tsx';
 import ProductPage from '../components/ProductPage.tsx';
-import Footer      from '../components/Footer.astro';
+import Footer from '../components/Footer.astro';
 
 import '../styles/global.css';
 ---
 
 <Layout title="TriHexa | Домашние коврики">
-  <Cursor      client:load />
-  <Nav         client:load />
+  <Cursor client:load />
+  <Nav client:load />
   <main>
     <ProductPage client:load category="home" />
   </main>
