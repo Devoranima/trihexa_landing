@@ -3,29 +3,29 @@ const year = new Date().getFullYear();
 
 const links = {
   'Продукция': [
-    { text: 'Автоковрики',        href: '/car'    },
-    { text: 'Домашние коврики',   href: '/home'   },
-    { text: 'Гаражные системы',   href: '/garage' },
+    { text: 'Автоковрики', href: '/car' },
+    { text: 'Домашние коврики', href: '/home' },
+    { text: 'Гаражные системы', href: '/garage' },
   ],
-  'Компания': [
-    { text: 'О нас',              href: '#' },
-    { text: 'Гарантия качества',  href: '#' },
-    { text: 'Вакансии',           href: '#' },
-  ],
+  // 'Компания': [
+  //   { text: 'О нас', href: '#' },
+  //   { text: 'Гарантия качества', href: '#' },
+  //   { text: 'Вакансии', href: '#' },
+  // ],
   'Контакты': [
-    { text: 'info@trihexa.com',     href: 'mailto:info@trihexa.com' },
-    { text: '+7 (999) 123-45-67',   href: 'tel:+79991234567'       },
-    { text: 'Запросить цену',       href: '/#contact'              },
+    { text: 'info@trihexa.com', href: 'mailto:info@trihexa.com' },
+    { text: '+7 (999) 123-45-67', href: 'tel:+79991234567' },
+    { text: 'Запросить цену', href: '/#contact' },
   ],
 };
 ---
 
 <footer class="bg-[#0c0c0d] border-t border-th-red/15">
-  <!-- Top section -->
+  <!-- top section -->
   <div class="max-w-7xl mx-auto px-6 lg:px-16 py-16 lg:py-20">
     <div class="grid lg:grid-cols-[1fr_2fr] gap-14 lg:gap-24">
 
-      <!-- Brand -->
+      <!-- brand -->
       <div>
         <a href="/" class="flex items-center gap-3 mb-6 group w-fit">
           <img src="/ICON.svg" alt="TriHexa" class="w-10 h-10 transition-transform duration-300 group-hover:scale-110" />
@@ -36,11 +36,11 @@ const links = {
         </p>
         <div class="flex items-center gap-4 mt-8">
           <span class="block w-8 h-px bg-th-red"></span>
-          <span class="text-th-red/60 text-[0.6rem] tracking-[0.4em] uppercase">Est. 2024</span>
+          <span class="text-th-light/35 text-[0.6rem] tracking-[0.4em] uppercase">Est. 2020</span>
         </div>
       </div>
 
-      <!-- Links grid -->
+      <!-- links grid -->
       <div class="grid sm:grid-cols-3 gap-10">
         {Object.entries(links).map(([group, items]) => (
           <div>
@@ -63,16 +63,19 @@ const links = {
     </div>
   </div>
 
-  <!-- Bottom bar -->
+  <!-- bottom bar -->
   <div class="border-t border-th-white/6">
     <div class="max-w-7xl mx-auto px-6 lg:px-16 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
       <span class="text-th-light/20 text-[0.65rem] tracking-[0.3em]">
-        &copy; {year} TriHexa. Все права защищены.
+        &copy; {year} TRiHEXA. Все права защищены.
       </span>
       <div class="flex items-center gap-6">
-        {['Политика конфиденциальности', 'Условия использования'].map(l => (
-          <a href="#" class="text-th-light/20 hover:text-th-light/50 text-[0.65rem] tracking-[0.25em] uppercase transition-colors duration-200">
-            {l}
+        {[
+          { text: 'Политика конфиденциальности', href: '/privacy' },
+          { text: 'Условия использования', href: '/terms' },
+        ].map(l => (
+          <a href={l.href} class="text-th-light/20 hover:text-th-light/50 text-[0.65rem] tracking-[0.25em] uppercase transition-colors duration-200">
+            {l.text}
           </a>
         ))}
       </div>
