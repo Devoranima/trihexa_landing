@@ -102,17 +102,17 @@ export default function Hero() {
         <div className="w-full md:max-w-[52%] mx-auto px-6 lg:px-16 pt-28 pb-20 pointer-events-auto" style={{ paddingLeft: 'clamp(1.5rem, 4vw, 4rem)' }}>
 
           {/* eyebrow */}
-          <div ref={eyebrowRef} className="flex items-center gap-4 mb-5">
+          {/* <div ref={eyebrowRef} className="flex items-center gap-4 mb-5">
             <span className="block w-10 h-px bg-th-red" />
             <span className="text-th-red text-[0.65rem] tracking-[0.45em] uppercase font-semibold">
               Автомобиль · Дом · Гараж
             </span>
-          </div>
+          </div> */}
 
           {/* title */}
           <div ref={titleRef}>
             <h1
-              className="font-display leading-none text-th-white"
+              className="font-['Oswald'] font-medium leading-none text-th-white"
               style={{ fontSize: 'clamp(5rem, 13vw, 12rem)' }}
             >
               TRi<span className="text-th-red">HEXA</span>
@@ -124,7 +124,7 @@ export default function Hero() {
 
           {/* tagline */}
           <p ref={taglineRef} className="text-th-light/55 text-base lg:text-lg max-w-[42ch] leading-relaxed">
-            Производим коврики из TPE для салона, багажника
+            Производим коврики из TPE для салона, багажника, дома
             и гаража. Точный крой под каждую модель — без зазоров, без смещений.
           </p>
 
@@ -147,9 +147,9 @@ export default function Hero() {
           {/* stats row */}
           <div className="flex gap-10 mt-14 pt-8 border-t border-th-white/8">
             {[
+              { value: '100+',  label: 'Видов ковриков'  },
               { value: '3',    label: 'Линейки' },
-              { value: '10+',  label: 'Видов ковриков'  },
-              { value: '100%', label: 'Точный крой' },
+              { value: '100%', label: 'Качество' },
             ].map(s => (
               <div key={s.label}>
                 <div className="font-display text-3xl text-th-white leading-none">{s.value}</div>

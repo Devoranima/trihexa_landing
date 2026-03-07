@@ -83,7 +83,7 @@ export default function Nav() {
               alt="TriHexa"
               className="w-9 h-9 transition-transform duration-300 group-hover:scale-110"
             />
-            <span className="font-display text-[1.6rem] text-th-white tracking-[0.22em] leading-none">
+            <span className="font-['Oswald'] font-medium text-[1.6rem] text-th-white tracking-[0.1em] leading-none">
               TRiHEXA
             </span>
           </a>
