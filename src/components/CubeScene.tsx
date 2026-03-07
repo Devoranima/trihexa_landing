@@ -36,7 +36,7 @@ float hexDist(vec2 p) {
 /* Height field for volumetric surface patterns */
 float getHeight(vec2 uv) {
   if (uPattern > 0.5 && uPattern < 1.5) {
-    // ── Honeycomb EVA cells ──
+    // ── Honeycomb TPE cells ──
     float sc = 12.0;
     vec2 s = vec2(1.0, 1.732);
     vec2 h = s * 0.5;
@@ -185,7 +185,7 @@ export default function CubeScene() {
     }
 
     // primary
-    addFace(0xE80000, 0, 1, 0, -Math.PI / 2, 0, 0, true, 1);  // +Y top: honeycomb EVA cells
+    addFace(0xE80000, 0, 1, 0, -Math.PI / 2, 0, 0, true, 1);  // +Y top: honeycomb TPE cells
     addFace(0xC40000, 0, 0, 1, 0, 0, 0, true, 3);  // +Z front: anti-slip dome nubs
     addFace(0xD60000, 1, 0, 0, 0, Math.PI / 2, 0, true, 2);  // +X right: diamond ridges
     // secondary
