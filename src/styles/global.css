@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -70,7 +70,7 @@ body {
   transform: scaleX(0);
 }
 
-/* ── Marquee ───────────────────────────────────────────── */
+/* marquee */
 @keyframes marquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -80,7 +80,7 @@ body {
   white-space: nowrap;
 }
 
-/* ── Glitch text ───────────────────────────────────────── */
+/* glitch text */
 .glitch {
   position: relative;
 }
@@ -102,25 +102,25 @@ body {
   clip-path: inset(55% 0 25% 0);
 }
 @keyframes glitch-r {
-  0%   { opacity: 1; transform: translateX(-4px); }
-  33%  { transform: translateX(4px); }
-  66%  { transform: translateX(-2px); }
+  0% { opacity: 1; transform: translateX(-4px); }
+  33% { transform: translateX(4px); }
+  66% { transform: translateX(-2px); }
   100% { opacity: 0; }
 }
 @keyframes glitch-l {
-  0%   { opacity: 1; transform: translateX(4px); }
-  33%  { transform: translateX(-4px); }
-  66%  { transform: translateX(2px); }
+  0% { opacity: 1; transform: translateX(4px); }
+  33% { transform: translateX(-4px); }
+  66% { transform: translateX(2px); }
   100% { opacity: 0; }
 }
 
-/* ── Magnetic button ───────────────────────────────────── */
+/* magnetic button */
 .mag-btn {
   display: inline-block;
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* ── Product panel hover ───────────────────────────────── */
+/* product panel hover */
 .product-panel {
   transition: background-color 0.5s ease;
 }
@@ -129,30 +129,15 @@ body {
   transform: scale(1.05);
 }
 
-/* ── Feature card border animation ────────────────────── */
-.feature-card {
-  position: relative;
-  overflow: hidden;
-}
-.feature-card::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 0; height: 2px;
-  background: var(--th-red);
-  transition: width 0.4s ease;
-}
-.feature-card:hover::before { width: 100%; }
-
-/* ── Utility: visually hidden ──────────────────────────── */
+/* utility: visually hidden */
 .sr-only {
   position: absolute; width: 1px; height: 1px;
   padding: 0; margin: -1px; overflow: hidden;
   clip: rect(0,0,0,0); white-space: nowrap; border-width: 0;
 }
 
-/* ── Film grain overlay ────────────────────────────────── */
-body::before {
+/* film grain overlay */
+/* body::before {
   content: '';
   position: fixed;
   top: -50%;
@@ -168,20 +153,20 @@ body::before {
 }
 
 @keyframes grain {
-  0%  { transform: translate(0,    0);    }
-  10% { transform: translate(-5%,  -5%);  }
-  20% { transform: translate(-10%, 3%);   }
-  30% { transform: translate(5%,   -12%); }
-  40% { transform: translate(-3%,  12%);  }
-  50% { transform: translate(-8%,  5%);   }
-  60% { transform: translate(10%,  0);    }
-  70% { transform: translate(0,    8%);   }
-  80% { transform: translate(2%,   15%);  }
-  90% { transform: translate(-6%,  5%);   }
-  100%{ transform: translate(5%,   0);    }
-}
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -5%); }
+  20% { transform: translate(-10%, 3%); }
+  30% { transform: translate(5%, -12%); }
+  40% { transform: translate(-3%, 12%); }
+  50% { transform: translate(-8%, 5%); }
+  60% { transform: translate(10%, 0); }
+  70% { transform: translate(0, 8%); }
+  80% { transform: translate(2%, 15%); }
+  90% { transform: translate(-6%, 5%); }
+  100% { transform: translate(5%, 0); }
+} */
 
-/* ── Scramble text ─────────────────────────────────────── */
+/* scramble text */
 .scramble-target {
   font-variant-numeric: tabular-nums;
 }
