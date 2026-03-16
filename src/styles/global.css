@@ -199,3 +199,17 @@ body {
 .scramble-target {
   font-variant-numeric: tabular-nums;
 }
+
+.Ozon-link{
+  border-color: #005BFF;
+  &:hover{
+    background-color: #005BFF;
+  }
+}
+
+.Wildberries-link{
+  border-color: #CB11AB;
+  &:hover{
+    background-color: #CB11AB;
+  }
+}

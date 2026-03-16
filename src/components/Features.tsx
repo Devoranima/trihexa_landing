@@ -1,94 +1,150 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ── Data ───────────────────────────────────────────────── */
+/* data */
 const features = [
   {
     icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10">
-        <path d="M20 4L36 13V27L20 36L4 27V13L20 4Z" stroke="#A80000" strokeWidth="1.5" />
-        <path d="M20 12L28 17V23L20 28L12 23V17L20 12Z" fill="#A80000" opacity="0.25" />
-        <circle cx="20" cy="20" r="2" fill="#A80000" />
+      <svg
+        width="40"
+        height="40"
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M36.8203 10.2881V29.7109L20 39.4229L3.17969 29.7109V10.2881L20 0.576172L36.8203 10.2881Z"
+          className="stroke-th-dark group-hover:stroke-th-light transition-all duration-500"
+        />
+        <path
+          d="M20 8L30.3923 14V26L20 32L9.6077 26V14L20 8Z"
+          className="fill-th-dark group-hover:fill-th-light transition-all duration-500"
+          fillOpacity="0.3"
+        />
+        <path
+          d="M20 16L23.4641 18V22L20 24L16.5359 22V18L20 16Z"
+          className="fill-th-dark group-hover:fill-th-light transition-all duration-500"
+        />
       </svg>
     ),
-    title:  'Нескользящая основа',
-    detail: 'Вулканизированные резиновые шипы надёжно фиксируют коврик на любом покрытии — плитка, ламинат, бетон.',
+    title: "Нескользящая основа",
+    detail:
+      "Рельефная структура TPE надёжно фиксирует коврик на любом покрытии — плитка, ламинат, бетон.",
   },
   {
     icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10">
-        <rect x="4" y="18" width="32" height="4" stroke="#A80000" strokeWidth="1.5" />
-        <line x1="20" y1="4" x2="20" y2="36" stroke="#A80000" strokeWidth="1.5" />
-        <rect x="10" y="12" width="20" height="16" stroke="#A80000" strokeWidth="0.75" opacity="0.4" />
-        <circle cx="20" cy="20" r="2.5" fill="#A80000" />
-        <line x1="4" y1="13" x2="8" y2="13" stroke="#A80000" strokeWidth="1" />
-        <line x1="32" y1="13" x2="36" y2="13" stroke="#A80000" strokeWidth="1" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="none"
+        viewBox="0 0 40 40"
+      >
+        <path
+          className="fill-th-dark group-hover:fill-th-light transition-all duration-500"
+          d="M11.667 28.333V15H8.334v-3.333H15v16.666zm6.667 0V25h3.333v3.333zm8.333 0V15h-3.334v-3.333H30v16.666zm-8.333-6.666v-3.334h3.333v3.334z"
+        />
       </svg>
     ),
-    title:  'Точный крой',
-    detail: 'ЧПУ-нарезка с допуском ±1 мм по лекалам вашего автомобиля или помещения. Без зазоров, без перехлёстов.',
+    title: "Точная форма",
+    detail:
+      "Вакуумная формовка по пресс-формам повторяет контуры вашего автомобиля или помещения. Без зазоров, без перехлёстов.",
   },
   {
     icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10">
-        <path d="M20 5C20 5 8 11 8 21C8 27.6 13.4 33 20 33C26.6 33 32 27.6 32 21C32 11 20 5 20 5Z"
-              stroke="#A80000" strokeWidth="1.5" />
-        <path d="M14 21C14 24.3 16.7 27 20 27" stroke="#A80000" strokeWidth="1" strokeLinecap="round" opacity="0.5" />
-        <circle cx="20" cy="21" r="3" fill="#A80000" opacity="0.3" />
-        <line x1="20" y1="5" x2="20" y2="10" stroke="#A80000" strokeWidth="1.5" opacity="0.4" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="none"
+        viewBox="0 0 40 40"
+      >
+        <path
+          className="fill-th-dark group-hover:fill-th-light transition-all duration-500"
+          d="M21.083 3.733a1.67 1.67 0 0 0-2.168.002l-.148.128a56.669 56.669 0 0 0-5.887 6.12c-1.504 1.824-3.039 3.955-4.203 6.204-1.159 2.233-2.01 4.693-2.01 7.146a13.333 13.333 0 1 0 26.666 0c0-2.453-.852-4.913-2.01-7.146-1.166-2.25-2.7-4.38-4.203-6.205a57 57 0 0 0-5.498-5.77l-.537-.477zM10 23.333c0-1.713.607-3.628 1.635-5.613 1.023-1.97 2.405-3.902 3.816-5.618A53 53 0 0 1 20 7.25a53 53 0 0 1 4.547 4.848c1.413 1.717 2.794 3.65 3.816 5.62 1.03 1.985 1.637 3.9 1.637 5.614a10 10 0 1 1-20 0z"
+        />
+        <path
+          className="fill-th-dark group-hover:fill-th-light transition-all duration-500"
+          d="M13.933 23.403a1.667 1.667 0 0 0-1.123 2.072 7.52 7.52 0 0 0 5.048 5.048 1.666 1.666 0 1 0 .95-3.195 4.18 4.18 0 0 1-2.803-2.803 1.666 1.666 0 0 0-2.072-1.122"
+        />
       </svg>
     ),
-    title:  'Стойкость к погоде',
-    detail: 'UV-стабильные компаунды не выгорают, не трескаются и не деформируются от жары и мороза.',
+    title: "Стойкость к погоде",
+    detail:
+      "UV-стабильные компаунды не выгорают, не трескаются и не деформируются от жары и мороза.",
   },
   {
     icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10">
-        <rect x="8" y="28" width="24" height="5" rx="1" stroke="#A80000" strokeWidth="1.5" />
-        <path d="M12 28V18M28 28V18" stroke="#A80000" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M8 18H32" stroke="#A80000" strokeWidth="1.5" />
-        <path d="M15 18C15 14.7 17.7 12 21 12"
-              stroke="#A80000" strokeWidth="1" strokeLinecap="round" opacity="0.5" />
-        <circle cx="21" cy="10" r="2" fill="#A80000" opacity="0.4" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="none"
+        viewBox="0 0 40 40"
+      >
+        <path
+          className="fill-th-dark group-hover:fill-th-light transition-all duration-500"
+          d="M8.333 38.333a3.2 3.2 0 0 1-2.353-.978A3.22 3.22 0 0 1 5 35v-8.333q0-3.458 2.438-5.895t5.895-2.439H15V5q0-1.375.98-2.353a3.22 3.22 0 0 1 2.353-.98h3.334q1.374 0 2.355.98T25 5v13.333h1.667q3.457 0 5.896 2.439T35 26.667V35q0 1.376-.978 2.355a3.2 3.2 0 0 1-2.355.978zm0-3.333h3.334v-5q0-.708.48-1.187t1.186-.48a1.6 1.6 0 0 1 1.189.48q.48.482.478 1.187v5h3.333v-5q0-.708.48-1.187t1.187-.48q.706 0 1.188.48.481.482.479 1.187v5H25v-5q0-.708.48-1.187t1.187-.48q.706 0 1.188.48.481.482.478 1.187v5h3.334v-8.333q0-2.085-1.459-3.542-1.458-1.458-3.541-1.458H13.333q-2.084 0-3.541 1.458-1.46 1.458-1.459 3.542z"
+        />
       </svg>
     ),
-    title:  'Лёгкая чистка',
-    detail: 'Структура ячеек отталкивает воду, грязь и шерсть. Промыл — и готово.',
+    title: "Лёгкая чистка",
+    detail:
+      "Структура ячеек отталкивает воду, грязь и шерсть. Промыл — и готово.",
   },
   {
     icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10">
-        <path d="M8 20L16 28L32 12" stroke="#A80000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="20" cy="20" r="14" stroke="#A80000" strokeWidth="1" opacity="0.25" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="none"
+        viewBox="0 0 40 40"
+      >
+        <path
+          className="fill-th-dark group-hover:fill-th-light transition-all duration-500"
+          fillRule="evenodd"
+          d="M20 35a15 15 0 1 0 0-30.002A15 15 0 0 0 20 35m-.387-8.933 8.334-10-2.56-2.134-7.167 8.599-3.708-3.71-2.357 2.356 5 5 1.29 1.29z"
+          clipRule="evenodd"
+        />
       </svg>
     ),
-    title:  'Контроль качества',
-    detail: 'Каждая партия проходит 12 этапов проверки перед отправкой с производства.',
+    title: "Контроль качества",
+    detail:
+      "Каждая партия проходит многоступенчатую проверку перед отправкой с производства.",
   },
   {
     icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10">
-        <path d="M6 20H34M20 6V34" stroke="#A80000" strokeWidth="1.5" strokeLinecap="round" />
-        <rect x="10" y="10" width="20" height="20" stroke="#A80000" strokeWidth="1" opacity="0.3" />
-        <rect x="14" y="14" width="12" height="12" stroke="#A80000" strokeWidth="0.75" opacity="0.2" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="none"
+        viewBox="0 0 40 40"
+      >
+        <path
+          className="fill-th-dark group-hover:fill-th-light transition-all duration-500"
+          d="M31.667 5H8.333A3.343 3.343 0 0 0 5 8.333v23.334C5 33.5 6.5 35 8.333 35h23.334C33.5 35 35 33.5 35 31.667V8.333C35 6.5 33.5 5 31.667 5m-3.334 26.667V13.333c0-.916-.75-1.666-1.666-1.666H8.333V8.333h23.334v23.334z"
+        />
       </svg>
     ),
-    title:  'Под любой размер',
-    detail: 'Изготовим нестандартные размеры для спецтехники, промышленных зон и нетиповых планировок.',
+    title: "Под любой размер",
+    detail:
+      "Изготовим нестандартные размеры для спецтехники, промышленных зон и нетиповых планировок.",
   },
 ];
 
 const stats = [
-  { value: '3',   unit: '',   label: 'Линейки продукции'  },
-  { value: '10',  unit: '+',  label: 'Видов ковриков'     },
-  { value: '1',   unit: 'мм', label: 'Допуск нарезки'     },
-  { value: '100', unit: '%',  label: 'Точный крой'        },
+  { value: "3", unit: "", label: "Линейки продукции" },
+  { value: "100", unit: "+", label: "Видов ковриков" },
+  { value: "6", unit: "", label: "Лет на рынке" },
+  { value: "100", unit: "%", label: "Качественные материалы" },
 ];
 
-/* ── Counter hook ───────────────────────────────────────── */
+/* counter hook */
 function useCounter(target: number, trigger: Element | null) {
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
@@ -96,57 +152,90 @@ function useCounter(target: number, trigger: Element | null) {
     const obj = { val: 0 };
     const anim = gsap.to(obj, {
       val: target,
-      duration: 2,
-      ease: 'power2.out',
-      onUpdate: () => { if (ref.current) ref.current.textContent = Math.round(obj.val).toString(); },
-      scrollTrigger: { trigger, start: 'top 75%', once: true },
+      duration: 2.5,
+      ease: "power2.out",
+      onUpdate: () => {
+        if (ref.current)
+          ref.current.textContent = Math.round(obj.val).toString();
+      },
+      scrollTrigger: { trigger, start: "top 75%", once: true },
     });
-    return () => { anim.kill(); };
+    return () => {
+      anim.kill();
+    };
   }, [target, trigger]);
   return ref;
 }
 
 function Stat({ value, unit, label }: (typeof stats)[number]) {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const numRef  = useCounter(parseInt(value), wrapRef.current);
+  const numRef = useCounter(parseInt(value), wrapRef.current);
 
   return (
     <div ref={wrapRef} className="text-center">
-      <div className="font-display text-th-white" style={{ fontSize: 'clamp(3rem, 5vw, 5.5rem)', lineHeight: 1 }}>
+      <div
+        className="font-display text-th-navy"
+        style={{ fontSize: "clamp(3rem, 5vw, 5.5rem)", lineHeight: 1 }}
+      >
         <span ref={numRef}>{value}</span>
         <span className="text-th-red">{unit}</span>
       </div>
-      <div className="text-th-light/40 text-[0.6rem] tracking-[0.4em] uppercase mt-2">{label}</div>
+      <div className="text-th-navy text-[0.6rem] tracking-[0.4em] uppercase mt-2">
+        {label}
+      </div>
     </div>
   );
 }
 
-/* ── Main component ─────────────────────────────────────── */
+/* main component */
 export default function Features() {
-  const sectionRef  = useRef<HTMLElement>(null);
-  const headerRef   = useRef<HTMLDivElement>(null);
-  const statsRef    = useRef<HTMLDivElement>(null);
-  const cardsRef    = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      /* Header */
-      gsap.fromTo(headerRef.current,
+      /* header */
+      gsap.fromTo(
+        headerRef.current,
         { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: headerRef.current, start: 'top 80%' } });
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: { trigger: headerRef.current, start: "top 80%" },
+        },
+      );
 
-      /* Stats row */
-      gsap.fromTo(Array.from(statsRef.current?.children ?? []),
+      /* stats row */
+      gsap.fromTo(
+        Array.from(statsRef.current?.children ?? []),
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, stagger: 0.15, ease: 'power3.out',
-          scrollTrigger: { trigger: statsRef.current, start: 'top 78%' } });
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: { trigger: statsRef.current, start: "top 78%" },
+        },
+      );
 
-      /* Feature cards */
-      gsap.fromTo(Array.from(cardsRef.current?.children ?? []),
+      /* feature cards */
+      gsap.fromTo(
+        Array.from(cardsRef.current?.children ?? []),
         { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.65, stagger: 0.1, ease: 'power3.out',
-          scrollTrigger: { trigger: cardsRef.current, start: 'top 75%' } });
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.65,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: { trigger: cardsRef.current, start: "top 75%" },
+        },
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -156,16 +245,16 @@ export default function Features() {
     <section
       ref={sectionRef}
       id="features"
-      className="bg-th-navy relative overflow-hidden"
+      className="bg-th-light relative overflow-hidden"
     >
-      {/* Subtle grid */}
-      <div className="absolute inset-0 grid-pattern opacity-30" />
-      {/* Red side accent */}
-      <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-th-red/0 via-th-red/50 to-th-red/0" />
+      {/* subtle grid */}
+      <div className="absolute inset-0 grid-pattern opacity-5" />
+      {/* red side accent */}
+      {/* <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-th-red/0 via-th-red/50 to-th-red/0" /> */}
+      <div className="absolute inset-0 bg-gradient-to-t from-th-light to-th-light/0"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-16 py-28">
-
-        {/* Header */}
+        {/* header */}
         <div ref={headerRef} className="mb-20">
           <div className="flex items-center gap-4 mb-6">
             <span className="block w-10 h-px bg-th-red" />
@@ -174,44 +263,54 @@ export default function Features() {
             </span>
           </div>
           <h2
-            className="font-display text-th-white leading-none mb-5"
-            style={{ fontSize: 'clamp(3rem, 8vw, 7.5rem)' }}
+            className="font-display text-th-dark leading-none mb-5"
+            style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)" }}
           >
             СДЕЛАНО <span className="text-th-red">НАДОЛГО</span>
           </h2>
-          <p className="text-th-light/40 text-sm max-w-[50ch] leading-relaxed">
-            Каждый коврик TriHexa — результат работы с материалами, точного производства
-            и многоступенчатого контроля качества.
+          <p className="text-th-dark/80 text-sm max-w-[50ch] leading-relaxed">
+            Каждый коврик TRiHEXA — TPE-полимер, сформованный вакуумом, литьём
+            или вулканизацией для максимальной точности и долговечности.
           </p>
         </div>
 
-        {/* Stats */}
+        {/* stats */}
         <div
           ref={statsRef}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20 py-12 border-y border-th-red/15"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20 py-12 border-y border-th-red/85"
         >
-          {stats.map(s => <Stat key={s.label} {...s} />)}
+          {stats.map((s) => (
+            <Stat key={s.label} {...s} />
+          ))}
         </div>
 
-        {/* Feature cards */}
+        {/* feature cards */}
         <div
           ref={cardsRef}
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {features.map(f => (
-            <div
-              key={f.title}
-              className="feature-card bg-th-dark/60 p-8 border border-th-white/6 hover:border-th-red/30 transition-all duration-400 group"
-            >
-              <div className="mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:translate-y-[-2px]">
-                {f.icon}
+          {features.map((f) => (
+            <div className="relative block group">
+              <div className="absolute inset-0 translate-x-1 translate-y-1 bg-th-red"></div>
+              <div
+                key={f.title}
+                className="relative w-full h-full p-8 border-2 border-th-dark bg-th-light hover:border-th-red group-hover:-translate-x-1 group-hover:-translate-y-1 transition-all duration-500"
+              >
+                <div className="mb-6 transition-transform duration-300">
+                  <div className="relative w-fit h-fit">
+                    {f.icon}
+                    {/* <span className="text-th-dark">ICON</span> */}
+                    <div className="absolute -inset-1/4 -z-10 bg-th-red h-0 group-hover:h-[150%] transition-all duration-500"></div>
+                  </div>
+                </div>
+                <h3 className="text-th-navy font-semibold tracking-wide mb-3 text-base">
+                  {f.title}
+                </h3>
+                <p className="text-th-navy/60 text-sm leading-relaxed">
+                  {f.detail}
+                </p>
+                {/* <div className="absolute bottom-0 left-0 h-[3px] bg-[#A80000] transition-all duration-500 w-[30%] group-hover:w-full" /> */}
               </div>
-              <h3 className="text-th-white font-semibold tracking-wide mb-3 text-base">
-                {f.title}
-              </h3>
-              <p className="text-th-light/40 text-sm leading-relaxed">
-                {f.detail}
-              </p>
             </div>
           ))}
         </div>

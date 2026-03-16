@@ -23,10 +23,6 @@ export default function Hero() {
         { scaleY: 0, transformOrigin: 'top center' },
         { scaleY: 1, duration: 1.1, ease: 'power3.out' }, 0);
 
-      // tl.fromTo(accentBRef.current,
-      //   { scaleY: 0, transformOrigin: 'bottom center' },
-      //   { scaleY: 1, duration: 0.9, ease: 'power3.out' }, 0.2);
-
       /* eyebrow */
       tl.fromTo(eyebrowRef.current,
         { x: -60, opacity: 0 },
@@ -94,9 +90,6 @@ export default function Hero() {
       {/* left red accent bar */}
       <div ref={accentARef} className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-th-red/0 via-th-red/80 to-th-red/0 pointer-events-none z-30 will-change-transform" />
 
-      {/* right thin vertical accent */}
-      {/* <div ref={accentBRef} className="absolute right-[8%] top-[8%] bottom-[8%] w-px bg-th-red/15 pointer-events-none z-30" /> */}
-
       {/* text overlay */}
       <div className="absolute inset-0 flex items-center pointer-events-none z-30">
         <div className="w-full md:max-w-[52%] mx-auto px-6 lg:px-16 pt-28 pb-20 pointer-events-auto" style={{ paddingLeft: 'clamp(1.5rem, 4vw, 4rem)' }}>
@@ -124,21 +117,21 @@ export default function Hero() {
 
           {/* tagline */}
           <p ref={taglineRef} className="text-th-light/55 text-base lg:text-lg max-w-[42ch] leading-relaxed">
-            Производим коврики из TPE для салона, багажника, дома
-            и гаража. Точный крой под каждую модель — без зазоров, без смещений.
+            Производим изделия из TPE для автомобилей, дома
+            и гаража. Создаем будущее с помощью уникальных инженерных решений.
           </p>
 
           {/* CTAs */}
           <div ref={ctasRef} className="flex flex-wrap gap-4 mt-10">
             <a
               href="#products"
-              className="mag-btn px-8 py-4 bg-th-red text-white text-[0.7rem] tracking-[0.28em] uppercase font-semibold hover:bg-[#8a0000] transition-colors duration-300"
+              className="px-8 py-4 bg-th-red text-white text-[0.7rem] tracking-[0.28em] uppercase font-semibold hover:bg-[#7a0000] transition-all duration-500"
             >
               Каталог продукции
             </a>
             <a
               href="#contact"
-              className="mag-btn px-8 py-4 border border-th-light/25 text-th-light/75 hover:border-th-light hover:text-th-white text-[0.7rem] tracking-[0.28em] uppercase font-semibold transition-all duration-300"
+              className="px-8 py-4 border border-th-light/25 text-th-light/75 hover:border-th-light hover:text-th-white text-[0.7rem] tracking-[0.28em] uppercase font-semibold transition-all duration-300"
             >
               Запросить цену
             </a>

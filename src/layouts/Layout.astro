@@ -4,10 +4,14 @@ interface Props {
   description?: string;
 }
 
+const SITE = 'https://trihexapro.ru';
+
 const {
   title,
   description = 'TriHexa — Производство ковриков для автомобилей, дома и гаража. Качество в каждой детали.',
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, SITE).href;
 ---
 
 <!doctype html>
@@ -15,12 +19,40 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#A80000" />
     <link rel="icon" type="image/svg+xml" href="/ICON.svg" />
+    <link rel="icon" type="image/png" href="/ICON.png" />
+    <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="TriHexa" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={`${SITE}/ICON.png`} />
+
     <title>{title}</title>
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "TriHexa",
+      "url": SITE,
+      "logo": `${SITE}/ICON.svg`,
+      "description": "Производство ковриков для автомобилей, дома и гаража",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "ceo@trihexapro.ru",
+        "telephone": "+7-906-328-33-28",
+        "contactType": "sales",
+        "availableLanguage": "Russian"
+      }
+    })} />
 
     <!-- Fonts preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

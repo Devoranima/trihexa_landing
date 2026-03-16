@@ -13,6 +13,8 @@ export default function Contact() {
   const rightRef    = useRef<HTMLDivElement>(null);
   const [interest, setInterest] = useState<string>('');
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -35,9 +37,38 @@ export default function Contact() {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setSending(true);
+    setError(null);
+
+    const form = e.target as HTMLFormElement;
+    const formData = {
+      name: (form.elements.namedItem('name') as HTMLInputElement).value,
+      email: (form.elements.namedItem('email') as HTMLInputElement).value,
+      interest,
+      message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+    };
+
+    try {
+      const res = await fetch('/api/mail.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.ok) {
+        setSent(true);
+      } else {
+        setError(data.errors?.join(', ') || data.error || 'Ошибка отправки');
+      }
+    } catch {
+      setError('Не удалось отправить сообщение. Проверьте соединение.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -46,12 +77,12 @@ export default function Contact() {
       id="contact"
       className="relative overflow-hidden bg-th-dark"
     >
-      {/* Background elements */}
+      {/* background elements */}
       <div className="absolute inset-0 hex-pattern opacity-50" />
       <div className="absolute inset-0 bg-gradient-to-br from-th-dark via-th-dark/95 to-[#0a0a0b]" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-th-red/50 to-transparent" />
 
-      {/* Large background text */}
+      {/* large background text */}
       <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
         aria-hidden="true"
@@ -66,11 +97,11 @@ export default function Contact() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-16 py-28 lg:py-36">
 
-        {/* Section header */}
+        {/* section header */}
         <div ref={headingRef} className="mb-16 lg:mb-20">
           <div className="flex items-center gap-4 mb-6">
             <span className="block w-10 h-px bg-th-red" />
-            <span className="text-th-red text-[0.6rem] tracking-[0.45em] uppercase font-semibold">
+            <span className="text-th-light/50 text-[0.6rem] tracking-[0.45em] uppercase font-semibold">
               Свяжитесь с нами
             </span>
           </div>
@@ -82,7 +113,7 @@ export default function Contact() {
           </h2>
           <h2
             className="font-display leading-none"
-            style={{ fontSize: 'clamp(3rem, 8vw, 7rem)', color: 'rgba(244,244,244,0.15)' }}
+            style={{ fontSize: 'clamp(3rem, 8vw, 7rem)', color: 'rgba(244,244,244,0.55)' }}
           >
             ВАШЕ ПРОСТРАНСТВО?
           </h2>
@@ -90,7 +121,7 @@ export default function Contact() {
 
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
 
-          {/* Left: contact info */}
+          {/* left: contact info */}
           <div ref={leftRef} className="space-y-10">
             <p className="text-th-light/50 text-base leading-relaxed max-w-[40ch]">
               Нужен один коврик или комплект на весь автопарк — мы подберём
@@ -101,8 +132,8 @@ export default function Contact() {
               {[
                 {
                   label: 'Почта',
-                  value: 'info@trihexa.com',
-                  href:  'mailto:info@trihexa.com',
+                  value: 'ceo@trihexapro.ru',
+                  href:  'mailto:ceo@trihexapro.ru',
                   icon:  (
                     <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5 shrink-0">
                       <rect x="2" y="5" width="16" height="12" rx="1" stroke="#A80000" strokeWidth="1.3" />
@@ -112,8 +143,8 @@ export default function Contact() {
                 },
                 {
                   label: 'Телефон',
-                  value: '+7 (999) 123-45-67',
-                  href:  'tel:+79991234567',
+                  value: '+7 (906) 328-33-28',
+                  href:  'tel:+79063283328',
                   icon:  (
                     <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5 shrink-0">
                       <path d="M4 3h4l2 4-2 2c1 2 3 4 5 5l2-2 4 2v4c0 1-1 2-2 2C7 19 1 13 1 5c0-1 1-2 2-2h1z"
@@ -153,8 +184,8 @@ export default function Contact() {
               ))}
             </div>
 
-            {/* Social row */}
-            <div className="pt-6 border-t border-th-white/8">
+            {/* social row */}
+            {/* <div className="pt-6 border-t border-th-white/8">
               <div className="text-th-light/25 text-[0.6rem] tracking-[0.4em] uppercase mb-4">Мы в соцсетях</div>
               <div className="flex gap-4">
                 {['Telegram', 'WhatsApp', 'Instagram'].map(s => (
@@ -167,10 +198,10 @@ export default function Contact() {
                   </a>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
 
-          {/* Right: contact form */}
+          {/* right: contact form */}
           <div ref={rightRef}>
             {sent ? (
               <div className="h-full flex flex-col items-start justify-center gap-4 py-16">
@@ -183,10 +214,10 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Name + email row */}
+                {/* name + email row */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   {[
-                    { id: 'name',  label: 'Имя',            type: 'text',  placeholder: 'Иван Иванов'       },
+                    { id: 'name', label: 'Имя', type: 'text', placeholder: 'Иван Иванов' },
                     { id: 'email', label: 'Электронная почта', type: 'email', placeholder: 'ivan@example.com' },
                   ].map(f => (
                     <div key={f.id}>
@@ -198,13 +229,13 @@ export default function Contact() {
                         type={f.type}
                         placeholder={f.placeholder}
                         required
-                        className="w-full bg-th-white/4 border border-th-white/10 text-th-light text-sm px-4 py-3 placeholder-th-light/20 focus:border-th-red/60 focus:outline-none transition-colors duration-200"
+                        className="w-full bg-th-white/4 border border-th-white/10 text-th-dark text-sm px-4 py-3 placeholder-th-light/20 focus:border-th-red/60 focus:outline-none transition-colors duration-200"
                       />
                     </div>
                   ))}
                 </div>
 
-                {/* Interest chips */}
+                {/* interest chips */}
                 <div>
                   <div className="text-th-light/40 text-[0.6rem] tracking-[0.4em] uppercase mb-3">
                     Меня интересует
@@ -227,7 +258,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* Message */}
+                {/* message */}
                 <div>
                   <label htmlFor="message" className="block text-th-light/40 text-[0.6rem] tracking-[0.4em] uppercase mb-2">
                     Сообщение
@@ -237,18 +268,25 @@ export default function Contact() {
                     rows={5}
                     placeholder="Расскажите о вашем проекте или требованиях…"
                     required
-                    className="w-full bg-th-white/4 border border-th-white/10 text-th-light text-sm px-4 py-3 placeholder-th-light/20 focus:border-th-red/60 focus:outline-none transition-colors duration-200 resize-none"
+                    className="w-full bg-th-white/4 border border-th-white/10 text-th-dark text-sm px-4 py-3 placeholder-th-light/20 focus:border-th-red/60 focus:outline-none transition-colors duration-200 resize-none"
                   />
                 </div>
 
+                {error && (
+                  <div className="text-[#f06060] text-sm py-2">{error}</div>
+                )}
+
                 <button
                   type="submit"
-                  className="mag-btn w-full py-4 bg-th-red text-white text-[0.7rem] tracking-[0.35em] uppercase font-semibold hover:bg-[#8a0000] transition-colors duration-300 flex items-center justify-center gap-3"
+                  disabled={sending}
+                  className="mag-btn relative w-full py-4 bg-th-red text-white text-[0.7rem] tracking-[0.35em] uppercase font-semibold hover:bg-[#8a0000] transition-colors duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Отправить
-                  <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4">
-                    <path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  {sending ? 'Отправка...' : 'Отправить'}
+                  {!sending && (
+                    <svg viewBox="0 0 20 20" fill="none" className="w-6 h-6 absolute right-2 top-1/2 -translate-y-1/2">
+                      <path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  )}
                 </button>
               </form>
             )}

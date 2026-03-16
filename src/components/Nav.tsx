@@ -13,17 +13,18 @@ const NAV_LINKS = [
 ] as const;
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false);
+  // const [scrolled, setScrolled] = useState(false);
   const [showTop, setShowTop] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const mobileRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const mobileBlurRef = useRef<HTMLDivElement>(null);
 
   /* scroll listener */
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 60);
+      // setScrolled(window.scrollY > 60);
       setShowTop(window.scrollY > 400);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -44,17 +45,27 @@ export default function Nav() {
   /* mobile menu animation */
   useEffect(() => {
     const el = mobileRef.current;
-    if (!el) return;
+    const blur_el = mobileBlurRef.current;
+    if (!el || !blur_el) return;
     if (menuOpen) {
       el.style.display = 'flex';
+      blur_el.style.display = "block";
       gsap.fromTo(el,
         { opacity: 0, y: -16 },
         { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out' },
       );
+      gsap.fromTo(blur_el,
+        {opacity: 0},
+        {opacity: 1, duration: 0.35, ease: 'power3.out'}
+      )
     } else {
       gsap.to(el, {
         opacity: 0, y: -8, duration: 0.25, ease: 'power3.in',
         onComplete: () => { el.style.display = 'none'; },
+      });
+      gsap.to(blur_el, {
+        opacity: 0, duration: 0.25, ease: 'power3.in',
+        onComplete: () => {blur_el.style.display = 'none'}
       });
     }
   }, [menuOpen]);
@@ -71,7 +82,7 @@ export default function Nav() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 ${
-          scrolled ? 'bg-th-dark/95 backdrop-blur-md border-b border-th-red/15' : 'bg-transparent'
+          'bg-th-dark/95 backdrop-blur-md border-b border-th-red/15'
         }`}
       >
         <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
@@ -146,7 +157,7 @@ export default function Nav() {
 
             <a
               href="/#contact"
-              className="ml-4 px-6 py-2.5 border border-th-red text-th-red hover:bg-th-red hover:text-white text-xs tracking-[0.25em] uppercase font-medium transition-all duration-300"
+              className="ml-4 px-6 py-2.5 border border-th-red text-white/80 hover:bg-th-red hover:text-white text-xs tracking-[0.25em] uppercase font-medium transition-all duration-300"
             >
               Заказать
             </a>
@@ -168,7 +179,7 @@ export default function Nav() {
         <div
           ref={mobileRef}
           style={{ display: 'none' }}
-          className="md:hidden flex-col gap-6 bg-th-dark/98 backdrop-blur-md border-t border-th-red/20 px-8 py-10"
+          className="md:hidden flex-col gap-6 bg-th-dark/98 border-t border-th-red/20 px-8 py-10"
         >
           {/* products parent + sub-links */}
           <a
@@ -211,6 +222,8 @@ export default function Nav() {
           </a>
         </div>
       </header>
+
+      <div className="hidden fixed inset-0 backdrop-blur-md z-40 pointer-events-none" ref={mobileBlurRef}></div>
 
       {/* scroll to top */}
       <button
