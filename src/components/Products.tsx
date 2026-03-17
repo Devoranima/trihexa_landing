@@ -4,19 +4,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* Shared SVG glow filter definition */
-const SchemeGlow = () => (
-  <defs>
-    <filter id="schemeGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-  </defs>
-);
-
 const CarScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, setHoveredIdx: React.Dispatch<React.SetStateAction<string>>}) => {
   return (
     <>
@@ -160,8 +147,6 @@ const GarageScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null
 const categories = [
   {
     id: "car",
-    number: "01",
-    label: "Автомобиль",
     name: "Автоковрики",
     tagline:
       "TPE с точным кроем под каждую модель. Защита салона от грязи, воды и реагентов.",
@@ -188,8 +173,6 @@ const categories = [
   },
   {
     id: "home",
-    number: "02",
-    label: "Для дома",
     name: "Домашние коврики",
     tagline:
       "Каждый порог и угол — под контролем. Впитывающие, моющиеся, долговечные.",
@@ -231,8 +214,6 @@ const categories = [
   },
   {
     id: "garage",
-    number: "03",
-    label: "Гараж",
     name: "Гаражные системы",
     tagline:
       "Промышленная защита пола от масла, реагентов и механических повреждений.",
@@ -313,7 +294,6 @@ function HPanel({
                   key={item.name}
                   className="flex items-start gap-4"
                   onMouseEnter={() => setHoveredIdx(item.id)}
-                  // onMouseLeave={() => setHoveredIdx(null)}
                 >
                   <span
                     className={`mt-[0.35rem] block h-px bg-th-red shrink-0 transition-all duration-300 ${active ? "w-8" : "w-5"}`}

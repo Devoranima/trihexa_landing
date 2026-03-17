@@ -15,11 +15,9 @@ interface Product {
   desc: string;
   features: string[];
   images?: string[];
-  links?: Record<(typeof MARKETPLACES)[number], string>;
 }
 
 interface CategoryData {
-  number: string;
   label: string;
   name: string;
   description: string;
@@ -31,7 +29,6 @@ interface CategoryData {
 /* category data */
 const DATA: Record<string, CategoryData> = {
   car: {
-    number: "01",
     label: "Автомобиль",
     name: "Автоковрики",
     description:
@@ -53,7 +50,6 @@ const DATA: Record<string, CategoryData> = {
           "mat_trunk_omada_perspective.webp",
           "mat_trunk_lada_perspective.webp",
         ],
-        links: { Ozon: "#", Wildberries: "#" },
       },
       {
         name: "Коврик пассажира",
@@ -64,6 +60,7 @@ const DATA: Record<string, CategoryData> = {
           "Лёгкая чистка",
           "Стойкость к реагентам",
         ],
+        
       },
       {
         name: "Коврик водителя",
@@ -83,7 +80,6 @@ const DATA: Record<string, CategoryData> = {
     ],
   },
   home: {
-    number: "02",
     label: "Для дома",
     name: "Домашние коврики",
     description:
@@ -106,7 +102,6 @@ const DATA: Record<string, CategoryData> = {
           "mat_door_boots_snow.webp",
           "mat_door_boots_snow_closeup.webp",
         ],
-        links: { Ozon: "" },
       },
       {
         name: "Коврик под раковину",
@@ -134,7 +129,6 @@ const DATA: Record<string, CategoryData> = {
     also: ["Коврик для шкафа", "Коврик в прихожую с ворсом"],
   },
   garage: {
-    number: "03",
     label: "Гараж",
     name: "Гаражные системы",
     description:
@@ -179,7 +173,6 @@ const DATA: Record<string, CategoryData> = {
 };
 
 /* sub-components */
-
 function ImagePlaceholder() {
   return (
     <div className="relative aspect-[4/3] bg-th-dark border-b border-th-white/40 flex flex-col items-center justify-center gap-3 overflow-hidden">
@@ -229,7 +222,7 @@ function ImageCarousel({ images, alt }: { images: string[]; alt: string }) {
     [count],
   );
 
-  // Touch/swipe handling
+  // touch/swipe handling
   useEffect(() => {
     const el = containerRef.current;
     if (!el || count <= 1) return;
@@ -249,7 +242,8 @@ function ImageCarousel({ images, alt }: { images: string[]; alt: string }) {
       dragging = false;
       const dx = e.changedTouches[0].clientX - startX;
       const dy = e.changedTouches[0].clientY - startY;
-      // Only swipe if horizontal movement > 40px and more horizontal than vertical
+      
+      // only swipe if horizontal movement > 40px and more horizontal than vertical
       if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
         if (dx < 0 && current < count - 1) {
           goTo(current + 1);
@@ -386,35 +380,12 @@ function ProductCard({ product }: { product: Product }) {
             </li>
           ))}
         </ul>
-
-        {/* marketplace links */}
-        {product.links && Object.keys(product.links).length > 0 && (
-          <div className="pt-4 mt-auto border-t border-th-white/6">
-            <div className="flex flex-wrap gap-2">
-              {Object.entries(product.links).map(([name, url]) => (
-                <a
-                  key={name}
-                  href={url || '#'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${name}-link flex items-center gap-1.5 px-3 py-1.5 text-[0.65rem] tracking-[0.15em] border text-th-light/70 hover:text-white transition-all duration-200`}
-                >
-                  {name}
-                  <svg viewBox="0 0 12 12" fill="none" className="w-3 h-3 opacity-40">
-                    <path d="M4 2h6v6M10 2L3 9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
 }
 
 /* main page component */
-
 export default function ProductPage({ category }: { category: string }) {
   const heroRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -504,14 +475,6 @@ export default function ProductPage({ category }: { category: string }) {
             {/* <span className="text-th-light/70">{cat.name}</span> */}
           </nav>
 
-          {/* eyebrow */}
-          {/* <div className="hero-anim flex items-center gap-4 mb-4">
-            <span className="block w-8 h-px bg-th-red" />
-            <span className="text-th-light/50 text-[0.6rem] tracking-[0.45em] uppercase font-semibold">
-              {cat.label}
-            </span>
-          </div> */}
-
           {/* title */}
           <h1
             className="hero-anim font-display text-th-white leading-none mb-6"
@@ -530,13 +493,6 @@ export default function ProductPage({ category }: { category: string }) {
       {/* product grid */}
       <section className="bg-th-dark py-10 lg:py-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-16">
-          {/* <div className="flex items-center gap-4 mb-10">
-            <span className="block w-8 h-px bg-th-red" />
-            <span className="text-th-light/50 text-[0.6rem] tracking-[0.45em] uppercase font-semibold">
-              Все товары
-            </span>
-          </div> */}
-
           <div
             ref={gridRef}
             className={`grid gap-6 ${
@@ -549,17 +505,6 @@ export default function ProductPage({ category }: { category: string }) {
               <ProductCard key={p.name} product={p} />
             ))}
           </div>
-
-          {/* "Also available" list */}
-          {/* {cat.also && cat.also.length > 0 && (
-            <div className="mt-10">
-              <p className="text-th-light/90 text-md leading-relaxed">
-                <span className="text-th-light/70">А также</span>{' '}
-                {cat.also.join(' / ')}
-              </p>
-              
-            </div>
-          )} */}
 
           {/* all products banner */}
           <div className="mt-16 py-8 px-8 border border-th-white/6 bg-th-white/[0.02] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">

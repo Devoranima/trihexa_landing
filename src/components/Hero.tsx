@@ -79,10 +79,6 @@ export default function Hero() {
       {/* left gradient overlay for text readability */}
       <div className="absolute inset-0 bg-gradient-to-r from-th-dark via-th-dark/75 md:via-th-dark/65 to-transparent z-20" />
 
-      {/* radial vignette */}
-      {/* !fix */}
-      {/* <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_50%,rgba(27,38,59,0.4)_0%,transparent_60%)] z-0" /> */}
-
       {/* corner accents */}
       <div className="absolute bottom-0 left-0 w-36 h-36 border-l border-b border-10 border-th-red/20 z-20" />
       <div className="absolute bottom-0 right-0 w-36 h-36 border-r border-b border-10 border-th-red/20 z-20" />
@@ -93,14 +89,6 @@ export default function Hero() {
       {/* text overlay */}
       <div className="absolute inset-0 flex items-center pointer-events-none z-30">
         <div className="w-full md:max-w-[52%] mx-auto px-6 lg:px-16 pt-28 pb-20 pointer-events-auto" style={{ paddingLeft: 'clamp(1.5rem, 4vw, 4rem)' }}>
-
-          {/* eyebrow */}
-          {/* <div ref={eyebrowRef} className="flex items-center gap-4 mb-5">
-            <span className="block w-10 h-px bg-th-red" />
-            <span className="text-th-red text-[0.65rem] tracking-[0.45em] uppercase font-semibold">
-              Автомобиль · Дом · Гараж
-            </span>
-          </div> */}
 
           {/* title */}
           <div ref={titleRef}>

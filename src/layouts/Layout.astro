@@ -26,7 +26,7 @@ const canonicalURL = new URL(Astro.url.pathname, SITE).href;
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
 
-    <!-- Open Graph -->
+    <!-- open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
     <meta property="og:site_name" content="TriHexa" />
@@ -37,7 +37,7 @@ const canonicalURL = new URL(Astro.url.pathname, SITE).href;
 
     <title>{title}</title>
 
-    <!-- Structured data -->
+    <!-- structured data -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "Organization",
@@ -54,7 +54,7 @@ const canonicalURL = new URL(Astro.url.pathname, SITE).href;
       }
     })} />
 
-    <!-- Fonts preconnect -->
+    <!-- fonts preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

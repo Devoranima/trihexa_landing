@@ -3,7 +3,6 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 
 /* component */
-
 export default function CubeScene() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -181,8 +180,8 @@ export default function CubeScene() {
         transparent: true,
         opacity,
         blending: THREE.AdditiveBlending,
-        depthWrite: false,   // critical — prevents glow layers from occluding each other
-        side: THREE.FrontSide, // optional for outer layers, gives softer edge
+        depthWrite: false, // prevents glow layers from occluding each other
+        side: THREE.FrontSide,
       });
       const mesh = new THREE.Mesh(baseGeo, mat);
       glowMats.push(mat);
@@ -244,7 +243,7 @@ export default function CubeScene() {
       cubeGroup.rotation.x = curRotX;
       cubeGroup.rotation.y = curRotY;
 
-      // Face separation (mouse proximity to cube area)
+      // face separation (mouse proximity to cube area)
       const dx = mouseX;
       const dist = Math.sqrt(dx * dx + mouseY * mouseY);
       const targetSep = Math.max(0, (0.7 - dist) / 0.7) * 0.35;
@@ -255,10 +254,8 @@ export default function CubeScene() {
           mesh.position.copy(f.basePos).addScaledVector(f.dir, curSep);
         }
       }
-      // innerGlowMat.opacity = curSep * 3;
       glowMats.forEach((mat, i) => {
-        // mesh.scale.setScalar(glowLayers[i].scale * curSep*3.2);
-        mat.opacity = glowLayers[i].opacity * curSep*3.5;
+        mat.opacity = glowLayers[i].opacity * curSep * 3.5;
       });
 
       // edge pulse

@@ -307,8 +307,6 @@ export default function Features() {
     >
       {/* subtle grid */}
       <div className="absolute inset-0 grid-pattern opacity-5" />
-      {/* red side accent */}
-      {/* <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-th-red/0 via-th-red/50 to-th-red/0" /> */}
       <div className="absolute inset-0 bg-gradient-to-t from-th-light to-th-light/0"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-16 py-28">
