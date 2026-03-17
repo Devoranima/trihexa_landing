@@ -17,99 +17,20 @@ const SchemeGlow = () => (
   </defs>
 );
 
-const CarScheme = ({ hoveredIdx }: { hoveredIdx: string | null }) => {
+const CarScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, setHoveredIdx: React.Dispatch<React.SetStateAction<string>>}) => {
   return (
     <>
-      {/* base car outline */}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 240 200"
-        className="absolute inset-0 w-full h-full opacity-60"
-      >
-        <SchemeGlow />
-        <g filter="url(#schemeGlow)">
-          <path
-            stroke="#a80000"
-            d="M119.113 5c-13.674.056-26.406 5.294-31.066 16.194s-8.388 147.919-.31 160.375c8.076 12.457 10.562 13.703 31.376 13.391s26.095-3.426 31.377-13.391c5.281-9.964 4.038-151.656 0-160.375-4.039-8.72-17.595-16.25-31.377-16.194Z"
-          />
-          <path
-            stroke="#a80000"
-            strokeOpacity=".5"
-            d="M82 59V31h8v28zM148 59V31h9v28zM148 169v-29h9v29zM82 169v-29h9v29z"
-          />
-          <path
-            stroke="#a80000"
-            strokeOpacity=".2"
-            d="M118.53 53C98.778 53 90 62.56 90 62.56L95.957 86s13.716-2.147 22.573-2.159C127.508 83.83 141.416 86 141.416 86L148 61.327S138.281 53 118.53 53Z"
-          />
-        </g>
-      </svg>
-
-      {/* trunk zone */}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 240 200"
-        className="absolute inset-0 w-full h-full transition-opacity duration-300"
-        style={{ opacity: hoveredIdx === "trunk" ? 1 : 0.3 }}
-      >
-        <path
-          fill="#a80000"
-          fillOpacity=".2"
-          stroke="#a80000"
-          strokeWidth="2"
-          d="M93 185v-37h53v37z"
-        />
-      </svg>
-
-      {/* passenger zone */}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 240 200"
-        className="absolute inset-0 w-full h-full transition-opacity duration-300"
-        style={{ opacity: hoveredIdx === "passenger" ? 1 : 0.3 }}
-      >
-        <path
-          fill="#a80000"
-          fillOpacity=".2"
-          d="M123.723 105.586V77H150v28.586h-26.277M89 137v-26.073h61V137z"
-        />
-        <path
-          stroke="#a80000"
-          strokeWidth="2"
-          d="M123.723 105.586V77H150v28.586h-26.277ZM89 137v-26.073h61V137z"
-        />
-      </svg>
-
-      {/* driver zone */}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 240 200"
-        className="absolute inset-0 w-full h-full transition-opacity duration-300"
-        style={{ opacity: hoveredIdx === "driver" ? 1 : 0.3 }}
-      >
-        <path
-          fill="#a80000"
-          fillOpacity=".2"
-          stroke="#a80000"
-          strokeWidth="2"
-          d="M114 106H89V77h25z"
-        />
-      </svg>
     </>
   );
 };
 
-const HomeScheme = ({ hoveredIdx }: { hoveredIdx: string | null }) => {
+const HomeScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, setHoveredIdx: React.Dispatch<React.SetStateAction<string>>}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 400 400"
-      className="w-full [&>*]:transition-all [&>*]:duration-300"
+      className="h-full w-auto max-w-full [&>*]:transition-all [&>*]:duration-300"
     >
       <path
         stroke="#fff"
@@ -118,6 +39,7 @@ const HomeScheme = ({ hoveredIdx }: { hoveredIdx: string | null }) => {
       <path stroke="#fff" d="M324.39 152.23v95.07l32.3 18.63" />
       <path
         fill={hoveredIdx == "entry" ? "#ff0000" : "#660000"}
+        onMouseEnter={()=>setHoveredIdx("entry")}
         stroke="#fff"
         d="m275.83 273.34 30.65-17.68 44.7 25.79-30.65 17.68z"
       />
@@ -163,6 +85,7 @@ const HomeScheme = ({ hoveredIdx }: { hoveredIdx: string | null }) => {
       />
       <path
         fill={hoveredIdx == "sink" ? "#ff0000" : "#660000"}
+        onMouseEnter={()=>setHoveredIdx("sink")}
         stroke="#fff"
         d="m139.18 232.4 13.41 7.74-34.49 19.9-6.29-3.63v-8.21z"
       />
@@ -176,6 +99,7 @@ const HomeScheme = ({ hoveredIdx }: { hoveredIdx: string | null }) => {
       />
       <path
         fill={hoveredIdx == "antistress" ? "#ff0000" : "#660000"}
+        onMouseEnter={()=>setHoveredIdx("antistress")}
         d="m106.36 271.39-21.38 12.34 27.62 15.93 78.94-45.54-27.9-16.11v9.47h-.73l-3.77-6.54-49.04 28.32-3.02 5.39h-.72z"
       />
       <path
@@ -184,6 +108,7 @@ const HomeScheme = ({ hoveredIdx }: { hoveredIdx: string | null }) => {
       />
       <path 
         fill={hoveredIdx == "wardrobe" ? "#ff0000" : "#660000"}
+        onMouseEnter={()=>setHoveredIdx("wardrobe")}
         stroke="#fff" 
         d="m259.46 245.5 16.45-9.5v19z" 
       />
@@ -207,6 +132,7 @@ const HomeScheme = ({ hoveredIdx }: { hoveredIdx: string | null }) => {
       />
       <path
         fill={hoveredIdx == "shoes" ? "#ff0000" : "#660000"}
+        onMouseEnter={()=>setHoveredIdx("shoes")}
         d="M285.29 315.1a8.8 8.8 0 0 1 3.43 4.54 5.6 5.6 0 0 0 4.16 3.75q2.57.8 5.26.74a4 4 0 0 0 3.38-2.07 1.8 1.8 0 0 0 0-1.56l-.67-.72q.54.02 1.1 0h.04a4 4 0 0 0 3.38-2.06 1.8 1.8 0 0 0 0-1.56 18 18 0 0 0-3.5-3.04 27 27 0 0 1-3.88-3.14q-2.25-2.18-4.44-4.43a149 149 0 0 1-4.34-3.4 2 2 0 0 0-1.5-.39l-.23.1a4.4 4.4 0 0 0-2.2 4.58 2 2 0 0 0-1.4-.34q-.15.03-.28.12a4 4 0 0 0-2 2.4c-.3.9-.3 1.88 0 2.79q.59.87 1.3 1.63l.36 3.57a76 76 0 0 1-3.02-2.76 1.3 1.3 0 0 0-.24-1.18l-.05-.07a2.4 2.4 0 0 0-.74-.8q.2-3.02.27-6.03l17.08-9.87 28.98 16.72-48.4 27.92-28.97-16.72 9.57-5.52q-.15 1.76.2 3.5 1.26 1.14 2.67 2.08l.65-.38v.48q1.31 1.02 2.5 2.16a12 12 0 0 0 3.25 2.74 9 9 0 0 0 5.7 1.1 3.7 3.7 0 0 0 2.33-1.3q.3-.42.3-.93v-.77q0-.23-.07-.44a3.6 3.6 0 0 0-1.24-1.85 80 80 0 0 1-6.56-5.69 1.3 1.3 0 0 0-.25-1.17q-.3-.42-.78-.65l-.01-.21q.12-1.88.2-3.74l4.03-2.35a11 11 0 0 1-.05 2q-.12 1.14-.07 2.3.03.74.18 1.46 1.26 1.14 2.66 2.08l.66-.38v.48q1.32 1.02 2.5 2.17a12 12 0 0 0 3.25 2.72 9 9 0 0 0 5.7 1.11 3.7 3.7 0 0 0 2.33-1.3q.3-.42.3-.93v-.77q0-.23-.07-.44a3.6 3.6 0 0 0-1.24-1.84 86 86 0 0 1-2.16-1.74l.32-2.93zm-24.03 8.11"
       />
       <path
@@ -215,6 +141,7 @@ const HomeScheme = ({ hoveredIdx }: { hoveredIdx: string | null }) => {
       />
       <path
         fill={hoveredIdx == "pet" ? "#ff0000" : "#660000"}
+        onMouseEnter={()=>setHoveredIdx("pet")}
         d="m158.64 337.44 11.27 6.5a4.2 4.2 0 0 1 1.38 3.06v4.99c0 .71-.18 2.21-.53 2.83a4 4 0 0 1-1.47 1.51 12 12 0 0 1-3.89 1.47l19.27 11.27 34.24-19.75-12.32-7.12a1 1 0 0 1-.38.13 2.94 2.94 0 0 1-3.14-1.96v-.2l-.85-.49.03 2.16q.45.37.81.8a1.15 1.15 0 0 1 .11 1.3 1.1 1.1 0 0 1-1.18.56 3.6 3.6 0 0 1-2.99-3.44l-.07-2.28a8 8 0 0 0-2.59 2.53q1.06.8 2.01 1.71a1.83 1.83 0 0 1-1.35 2.75q-.62.09-1.16-.23-6.59-3.84-12.94-8.08a7.4 7.4 0 0 0-1.62 4.42 5.7 5.7 0 0 0 3 5.18 34 34 0 0 0 9.36 3.41c3.15.64 6.38.74 9.56.28a1.96 1.96 0 0 1 1.79 2.58q-.2.6-.72.96c-3.15.6-6.39.6-9.54 0a45 45 0 0 1-11.86-4.08 9.1 9.1 0 0 1-4.8-6.37 8.4 8.4 0 0 1 2.8-8.5q.25-3.88.34-7.77l-16.5-9.52-17 9.81a69 69 0 0 1 1.36 9.55 13.8 13.8 0 0 1 9.57.03m-14.87 8.04 1.62.93v-1.87z"
       />
       <path
@@ -225,7 +152,7 @@ const HomeScheme = ({ hoveredIdx }: { hoveredIdx: string | null }) => {
   );
 };
 
-const GarageScheme = ({ hoveredIdx }: { hoveredIdx: string | null }) => {
+const GarageScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, setHoveredIdx: React.Dispatch<React.SetStateAction<string>>}) => {
   return <></>;
 };
 
@@ -253,7 +180,7 @@ const categories = [
       {
         id: "kid",
         name: "Коврик для детского кресла",
-        desc: "ОПИСАНИЕ",
+        desc: "Защита сиденья от продавливания и загрязнений под автокресло",
       },
     ],
     Scheme: CarScheme,
@@ -286,20 +213,19 @@ const categories = [
       {
         id: "wardrobe",
         name: "Коврик в шкаф",
-        desc: "ОПИСАНИЕ"
+        desc: "Защита от царапин, влаги и пыли",
       },
       {
         id: "antistress",
         name: "Коврик антистресс",
-        desc: "ОПИСАНИЕ"
+        desc: "Рельефная поверхность снимает усталость при долгом стоянии",
       },
       {
         id: "shoes",
         name: "Коврик под обувь",
-        desc: "ОПИСАНИЕ"
+        desc: "Сбор влаги и грязи с обуви, быстрая сушка",
       }
     ],
-    also: ["Коврик для шкафа", "Коврик в прихожую с ворсом"],
     Scheme: HomeScheme,
     href: "/home",
   },
@@ -328,7 +254,6 @@ const categories = [
         desc: "Гибкая резина с агрессивным протектором, компактное хранение",
       },
     ],
-    // also: ['Коврик под верстак', 'Покрытие для мастерской'],
     Scheme: CarScheme,
     href: "/garage",
   },
@@ -342,9 +267,9 @@ function HPanel({
   cat: (typeof categories)[number];
   active: boolean;
 }) {
-  const itemsRef = useRef<HTMLUListElement>(null);
+  const itemsRef = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
-  const [hoveredIdx, setHoveredIdx] = useState<string | null>(null);
+  const [hoveredIdx, setHoveredIdx] = useState<string>(cat.items[0].id);
 
   useEffect(() => {
     if (!active || hasAnimated.current) return;
@@ -360,92 +285,70 @@ function HPanel({
 
   return (
     <div
-      className="flex-shrink-0 h-full flex items-center relative overflow-hidden"
+      className="flex-shrink-0 h-full w-full flex items-center relative overflow-hidden"
       style={{ width: "100vw", backgroundColor: cat.bg }}
     >
-      {/* number watermark */}
-      {/* <div
-        className="absolute font-display text-[20rem] leading-none text-th-red/[0.04] select-none pointer-events-none"
-        style={{ right: "-2rem", top: "50%", transform: "translateY(-50%)" }}
-      >
-        {cat.number}
-      </div> */}
-
       <div
-        className="w-full px-6 lg:px-16 grid lg:grid-cols-2 gap-12 items-center relative z-10"
-        style={{ maxWidth: "1280px", margin: "0 auto" }}
+        className="w-full lg:h-full md:container mx-auto px-6 md:px-0 grid lg:grid-cols-2 gap-4 lg:gap-10 items-center relative z-10"
       >
         {/* text side */}
-        <div className="flex flex-col justify-center py-10 lg:py-0">
-          {/* <span className="text-th-light/50 text-[0.6rem] tracking-[0.45em] uppercase font-semibold mb-3 flex items-center gap-3">
-            <span className="block w-6 h-px bg-th-red" />
-            {cat.label}
-          </span> */}
-
+        <div className="flex flex-col justify-center pt-6 lg:py-0">
           <h2
-            className="font-display text-th-white leading-none mb-5 scramble-target glitch"
-            style={{ fontSize: "clamp(3rem, 6vw, 6rem)" }}
+            className="font-display text-th-white leading-none mb-3 lg:mb-5 scramble-target"
+            style={{ fontSize: "clamp(2rem, 6vw, 6rem)" }}
             data-text={cat.name}
           >
-            {/* <ScrambleText text={cat.name} trigger={active} /> */}
             {cat.name}
           </h2>
 
-          <p className="text-th-light/45 text-sm lg:text-base leading-relaxed max-w-[38ch] mb-8">
+          <p className="text-th-light/45 text-sm lg:text-base leading-relaxed max-w-[38ch] mb-4 lg:mb-8 hidden lg:block">
             {cat.tagline}
           </p>
 
-          <ul ref={itemsRef} className="space-y-3">
-            {cat.items.map((item) => (
-              <li
-                key={item.name}
-                className="flex items-start gap-4 group"
-                onMouseEnter={() => {
-                  setHoveredIdx(item.id);
-                }}
-                onMouseLeave={() => {
-                  setHoveredIdx(null);
-                }}
-              >
-                <span className="mt-[0.35rem] block w-5 h-px bg-th-red shrink-0 transition-all duration-300 group-hover:w-8" />
-                <div>
-                  <div className="text-th-white text-sm font-semibold tracking-wide">
-                    {item.name}
-                  </div>
-                  <div className="text-th-light/35 text-xs mt-0.5">
-                    {item.desc}
+          <div ref={itemsRef} className="space-y-3">
+            {cat.items.map((item) => {
+              const active = hoveredIdx === item.id;
+              return (
+                <div
+                  key={item.name}
+                  className="flex items-start gap-4"
+                  onMouseEnter={() => setHoveredIdx(item.id)}
+                  // onMouseLeave={() => setHoveredIdx(null)}
+                >
+                  <span
+                    className={`mt-[0.35rem] block h-px bg-th-red shrink-0 transition-all duration-300 ${active ? "w-8" : "w-5"}`}
+                  />
+                  <div>
+                    <div
+                      className="text-th-white text-md font-semibold tracking-wide transition-transform duration-300 origin-left"
+                      style={{ transform: active ? "scale(1.15)" : "scale(1)" }}
+                    >
+                      {item.name}
+                    </div>
+                    <div className="text-th-light/35 text-xs mt-0.5 hidden lg:block">
+                      {item.desc}
+                    </div>
                   </div>
                 </div>
-              </li>
-            ))}
-          </ul>
-
-          {cat.also && cat.also.length > 0 && (
-            <p className="mt-5 text-th-light/90 text-sm leading-relaxed">
-              <span className="text-th-light/70">А также:</span>{" "}
-              {cat.also.join(" · ")}
-            </p>
-          )}
+              );
+            })}
+          </div>
 
           <a
             href={cat.href}
-            className="mt-10 max-w-fit px-6 py-2.5 border border-th-red text-white/80 hover:bg-th-red hover:text-white text-[0.65rem] tracking-[0.35em] uppercase font-semibold transition-all duration-300"
+            className="mt-4 lg:mt-10 max-w-fit px-6 py-2.5 border border-th-red text-white/80 hover:bg-th-red hover:text-white text-[0.65rem] tracking-[0.35em] uppercase font-semibold transition-all duration-300"
           >
             Подробнее
           </a>
         </div>
 
         {/* visual side */}
-        <div className="w-full h-full flex items-center justify-center relative py-10 lg:py-0">
+        <div className="w-full flex items-center justify-center relative h-[40vh] lg:h-full">
           {/* radial glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,0,0,0.2),transparent_65%)]" />
-
-          {/* Scheme container: max 1.5× original (240→360), centered */}
-          {/* Frosted backdrop */}
-          {/* <div className="absolute -inset-6 md:-inset-20 bg-th-white/[0.02] border border-th-white/[0.06] backdrop-blur-sm rounded-sm" /> */}
+          <div className="absolute top-0 bottom-0 aspect-square bg-[radial-gradient(circle_at_50%_50%,rgba(168,0,0,0.2),transparent_65%)] pointer-events-none" />
 
           {/* Scheme area with aspect ratio lock */}
-          <Scheme hoveredIdx={hoveredIdx} />
+          <Scheme hoveredIdx={hoveredIdx} setHoveredIdx={setHoveredIdx} />
         </div>
       </div>
     </div>
