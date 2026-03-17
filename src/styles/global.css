@@ -7,7 +7,7 @@
 /* Variables */
 :root {
   --th-red:   #A80000;
-  --th-navy:  #1B263B;
+  --th-navy:  #1b263b;
   --th-dark:  #1A1A1B;
   --th-light: #F4F4F4;
   --th-white: #FFFFFF;
@@ -212,4 +212,48 @@ body {
   &:hover{
     background-color: #CB11AB;
   }
+}
+
+.feature_card:hover::before, .feature_card:hover::after{
+  opacity: 1;
+}
+
+.feature_card::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+
+  border-radius: inherit;
+  background: radial-gradient(
+    30rem circle at var(--mouse-x) var(--mouse-y),
+    rgba(184, 0, 0, 0.1),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.feature_card::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+
+  border-radius: inherit;
+  background: radial-gradient(
+    20rem circle at var(--mouse-x) var(--mouse-y),
+    rgba(184, 0, 0, 1),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  pointer-events: none;
+  z-index: -1;
 }
