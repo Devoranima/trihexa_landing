@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const INTEREST_OPTIONS = ['Автоковрики', 'Для дома', 'Гаражные системы', 'Индивидуальный заказ'] as const;
+const INTEREST_OPTIONS = ['Автоковрики', 'Для дома', 'Гаражные системы', 'Индивидуальный заказ', 'Другое'] as const;
 
 export default function Contact() {
   const sectionRef  = useRef<HTMLElement>(null);
@@ -183,22 +183,6 @@ export default function Contact() {
                 </div>
               ))}
             </div>
-
-            {/* social row */}
-            {/* <div className="pt-6 border-t border-th-white/8">
-              <div className="text-th-light/25 text-[0.6rem] tracking-[0.4em] uppercase mb-4">Мы в соцсетях</div>
-              <div className="flex gap-4">
-                {['Telegram', 'WhatsApp', 'Instagram'].map(s => (
-                  <a
-                    key={s}
-                    href="#"
-                    className="text-[0.65rem] tracking-[0.3em] uppercase text-th-light/35 hover:text-th-red transition-colors duration-200"
-                  >
-                    {s}
-                  </a>
-                ))}
-              </div>
-            </div> */}
           </div>
 
           {/* right: contact form */}
