@@ -228,7 +228,7 @@ export default function Nav() {
       {/* scroll to top */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`fixed bottom-6 right-6 z-50 w-20 h-20 border border-th-red/40 bg-th-dark/80 backdrop-blur-sm text-th-red hover:bg-th-red hover:text-white flex items-center justify-center transition-all duration-300 ${
+        className={`fixed bottom-6 right-6 z-50 w-14 lg:w-20 aspect-square border border-th-red/40 bg-th-dark/80 backdrop-blur-sm text-th-red hover:bg-th-red hover:text-white flex items-center justify-center transition-all duration-300 ${
           showTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 pointer-events-none'
         }`}
         aria-label="Наверх"
