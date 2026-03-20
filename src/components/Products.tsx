@@ -276,12 +276,12 @@ const HPanel = memo(function HPanel({
       style={{ minWidth: "100vw", backgroundColor: cat.bg }}
     >
       <div
-        className="w-full lg:h-full md:container mx-auto px-6 md:px-0 grid lg:grid-cols-2 gap-4 lg:gap-10 items-center relative z-10"
+        className="w-full lg:h-full container mx-auto px-10 md:px-6 grid lg:grid-cols-2 gap-4 lg:gap-10 items-center relative z-10"
       >
         {/* text side */}
         <div className="flex flex-col justify-center pt-6 lg:py-0">
           <h2
-            className="font-display text-th-white leading-none mb-3 lg:mb-5 scramble-target"
+            className="font-display text-th-white leading-none mb-6 scramble-target"
             style={{ fontSize: "clamp(2rem, 6vw, 6rem)" }}
             data-text={cat.name}
           >
@@ -292,7 +292,7 @@ const HPanel = memo(function HPanel({
             {cat.tagline}
           </p>
 
-          <div ref={itemsRef} className="space-y-3">
+          <div ref={itemsRef} className="space-y-4">
             {cat.items.map((item) => {
               const active = hoveredIdx === item.id;
               return (
@@ -306,8 +306,8 @@ const HPanel = memo(function HPanel({
                   />
                   <div>
                     <div
-                      className="text-th-white text-md font-semibold tracking-wide transition-transform duration-300 origin-left"
-                      style={{ transform: active ? "scale(1.15)" : "scale(1)" }}
+                      className="text-th-white text-md font-normal tracking-wide transition-transform duration-300 origin-left"
+                      style={{ transform: active ? "scale(1.2)" : "scale(1)" }}
                     >
                       {item.name}
                     </div>
@@ -322,7 +322,7 @@ const HPanel = memo(function HPanel({
 
           <a
             href={cat.href}
-            className="mt-4 lg:mt-10 max-w-fit px-6 py-2.5 border border-th-red text-white/80 hover:bg-th-red hover:text-white text-[0.65rem] tracking-[0.35em] uppercase font-semibold transition-all duration-300"
+            className="mt-6 lg:mt-10 max-w-fit px-6 py-2.5 border border-th-red text-white/80 hover:bg-th-red hover:text-white text-[0.65rem] tracking-[0.35em] uppercase font-semibold transition-all duration-300"
           >
             Подробнее
           </a>
