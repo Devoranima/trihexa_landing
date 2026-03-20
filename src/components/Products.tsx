@@ -1,23 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const CarScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, setHoveredIdx: React.Dispatch<React.SetStateAction<string>>}) => {
+const CarScheme = memo(({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, setHoveredIdx: React.Dispatch<React.SetStateAction<string>>}) => {
   return (
     <>
     </>
   );
-};
+});
 
-const HomeScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, setHoveredIdx: React.Dispatch<React.SetStateAction<string>>}) => {
+const HomeScheme = memo(({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, setHoveredIdx: React.Dispatch<React.SetStateAction<string>>}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 400 400"
-      className="h-full w-auto max-w-full [&>*]:transition-all [&>*]:duration-300"
+      className="h-full w-auto max-w-full"
     >
       <path
         stroke="#fff"
@@ -28,6 +28,7 @@ const HomeScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, 
         fill={hoveredIdx == "entry" ? "#ff0000" : "#660000"}
         onMouseEnter={()=>setHoveredIdx("entry")}
         stroke="#fff"
+        style={{ transition: "fill 0.3s" }}
         d="m275.83 273.34 30.65-17.68 44.7 25.79-30.65 17.68z"
       />
       <path
@@ -74,6 +75,7 @@ const HomeScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, 
         fill={hoveredIdx == "sink" ? "#ff0000" : "#660000"}
         onMouseEnter={()=>setHoveredIdx("sink")}
         stroke="#fff"
+        style={{ transition: "fill 0.3s" }}
         d="m139.18 232.4 13.41 7.74-34.49 19.9-6.29-3.63v-8.21z"
       />
       <path
@@ -87,6 +89,7 @@ const HomeScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, 
       <path
         fill={hoveredIdx == "antistress" ? "#ff0000" : "#660000"}
         onMouseEnter={()=>setHoveredIdx("antistress")}
+        style={{ transition: "fill 0.3s" }}
         d="m106.36 271.39-21.38 12.34 27.62 15.93 78.94-45.54-27.9-16.11v9.47h-.73l-3.77-6.54-49.04 28.32-3.02 5.39h-.72z"
       />
       <path
@@ -96,7 +99,8 @@ const HomeScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, 
       <path 
         fill={hoveredIdx == "wardrobe" ? "#ff0000" : "#660000"}
         onMouseEnter={()=>setHoveredIdx("wardrobe")}
-        stroke="#fff" 
+        stroke="#fff"
+        style={{ transition: "fill 0.3s" }}
         d="m259.46 245.5 16.45-9.5v19z" 
       />
       <path
@@ -120,6 +124,7 @@ const HomeScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, 
       <path
         fill={hoveredIdx == "shoes" ? "#ff0000" : "#660000"}
         onMouseEnter={()=>setHoveredIdx("shoes")}
+        style={{ transition: "fill 0.3s" }}
         d="M285.29 315.1a8.8 8.8 0 0 1 3.43 4.54 5.6 5.6 0 0 0 4.16 3.75q2.57.8 5.26.74a4 4 0 0 0 3.38-2.07 1.8 1.8 0 0 0 0-1.56l-.67-.72q.54.02 1.1 0h.04a4 4 0 0 0 3.38-2.06 1.8 1.8 0 0 0 0-1.56 18 18 0 0 0-3.5-3.04 27 27 0 0 1-3.88-3.14q-2.25-2.18-4.44-4.43a149 149 0 0 1-4.34-3.4 2 2 0 0 0-1.5-.39l-.23.1a4.4 4.4 0 0 0-2.2 4.58 2 2 0 0 0-1.4-.34q-.15.03-.28.12a4 4 0 0 0-2 2.4c-.3.9-.3 1.88 0 2.79q.59.87 1.3 1.63l.36 3.57a76 76 0 0 1-3.02-2.76 1.3 1.3 0 0 0-.24-1.18l-.05-.07a2.4 2.4 0 0 0-.74-.8q.2-3.02.27-6.03l17.08-9.87 28.98 16.72-48.4 27.92-28.97-16.72 9.57-5.52q-.15 1.76.2 3.5 1.26 1.14 2.67 2.08l.65-.38v.48q1.31 1.02 2.5 2.16a12 12 0 0 0 3.25 2.74 9 9 0 0 0 5.7 1.1 3.7 3.7 0 0 0 2.33-1.3q.3-.42.3-.93v-.77q0-.23-.07-.44a3.6 3.6 0 0 0-1.24-1.85 80 80 0 0 1-6.56-5.69 1.3 1.3 0 0 0-.25-1.17q-.3-.42-.78-.65l-.01-.21q.12-1.88.2-3.74l4.03-2.35a11 11 0 0 1-.05 2q-.12 1.14-.07 2.3.03.74.18 1.46 1.26 1.14 2.66 2.08l.66-.38v.48q1.32 1.02 2.5 2.17a12 12 0 0 0 3.25 2.72 9 9 0 0 0 5.7 1.11 3.7 3.7 0 0 0 2.33-1.3q.3-.42.3-.93v-.77q0-.23-.07-.44a3.6 3.6 0 0 0-1.24-1.84 86 86 0 0 1-2.16-1.74l.32-2.93zm-24.03 8.11"
       />
       <path
@@ -129,6 +134,7 @@ const HomeScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, 
       <path
         fill={hoveredIdx == "pet" ? "#ff0000" : "#660000"}
         onMouseEnter={()=>setHoveredIdx("pet")}
+        style={{ transition: "fill 0.3s" }}
         d="m158.64 337.44 11.27 6.5a4.2 4.2 0 0 1 1.38 3.06v4.99c0 .71-.18 2.21-.53 2.83a4 4 0 0 1-1.47 1.51 12 12 0 0 1-3.89 1.47l19.27 11.27 34.24-19.75-12.32-7.12a1 1 0 0 1-.38.13 2.94 2.94 0 0 1-3.14-1.96v-.2l-.85-.49.03 2.16q.45.37.81.8a1.15 1.15 0 0 1 .11 1.3 1.1 1.1 0 0 1-1.18.56 3.6 3.6 0 0 1-2.99-3.44l-.07-2.28a8 8 0 0 0-2.59 2.53q1.06.8 2.01 1.71a1.83 1.83 0 0 1-1.35 2.75q-.62.09-1.16-.23-6.59-3.84-12.94-8.08a7.4 7.4 0 0 0-1.62 4.42 5.7 5.7 0 0 0 3 5.18 34 34 0 0 0 9.36 3.41c3.15.64 6.38.74 9.56.28a1.96 1.96 0 0 1 1.79 2.58q-.2.6-.72.96c-3.15.6-6.39.6-9.54 0a45 45 0 0 1-11.86-4.08 9.1 9.1 0 0 1-4.8-6.37 8.4 8.4 0 0 1 2.8-8.5q.25-3.88.34-7.77l-16.5-9.52-17 9.81a69 69 0 0 1 1.36 9.55 13.8 13.8 0 0 1 9.57.03m-14.87 8.04 1.62.93v-1.87z"
       />
       <path
@@ -137,11 +143,11 @@ const HomeScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, 
       />
     </svg>
   );
-};
+});
 
-const GarageScheme = ({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, setHoveredIdx: React.Dispatch<React.SetStateAction<string>>}) => {
+const GarageScheme = memo(({ hoveredIdx, setHoveredIdx }: { hoveredIdx: string | null, setHoveredIdx: React.Dispatch<React.SetStateAction<string>>}) => {
   return <></>;
-};
+});
 
 /* data */
 const categories = [
@@ -241,7 +247,7 @@ const categories = [
 ];
 
 /* horizontal panel */
-function HPanel({
+const HPanel = memo(function HPanel({
   cat,
   active,
 }: {
@@ -266,8 +272,8 @@ function HPanel({
 
   return (
     <div
-      className="flex-shrink-0 h-full w-full flex items-center relative overflow-hidden"
-      style={{ width: "100vw", backgroundColor: cat.bg }}
+      className="flex-shrink-0 h-screen w-screen flex items-center relative overflow-hidden"
+      style={{ minWidth: "100vw", backgroundColor: cat.bg }}
     >
       <div
         className="w-full lg:h-full md:container mx-auto px-6 md:px-0 grid lg:grid-cols-2 gap-4 lg:gap-10 items-center relative z-10"
@@ -333,16 +339,22 @@ function HPanel({
       </div>
     </div>
   );
-}
+});
 
 /* section */
 export default function Products() {
   const headerRef = useRef<HTMLDivElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const flickRef = useRef<HTMLDivElement>(null);
+
+  const endRef = useRef<HTMLDivElement>(null);
+
   const [activePanel, setActivePanel] = useState(0);
+  const activePanelRef = useRef(0);
 
   useEffect(() => {
+    const html = document.documentElement;
     const ctx = gsap.context(() => {
       /* header reveal */
       gsap.fromTo(
@@ -357,25 +369,55 @@ export default function Products() {
         },
       );
 
-      /* horizontal scroll pin */
-      gsap.to(trackRef.current, {
-        x: () => -(window.innerWidth * 2),
+      /* horizontal scroll animation */
+      const animation = gsap.to(trackRef.current, {
+        xPercent: -(2/3) * 100,
+        duration: 5,
         ease: "none",
-        scrollTrigger: {
-          trigger: pinRef.current,
-          pin: true,
-          scrub: 1,
-          start: "top top",
-          end: () => "+=" + window.innerWidth * 2,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            setActivePanel(Math.round(self.progress * 2));
-          },
+      });
+
+      // ST1: pin + scrub
+      ScrollTrigger.create({
+        trigger: pinRef.current,
+        start: "top 0%",
+        endTrigger: endRef.current,
+        end: "bottom 100%",
+        pin: true,
+        animation: animation,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const panel = Math.round(self.progress * 2);
+          if (panel !== activePanelRef.current) {
+            activePanelRef.current = panel;
+            setActivePanel(panel);
+          }
+        },
+      });
+
+      // ST2: toggle scroll-snap on <html>
+      ScrollTrigger.create({
+        trigger: flickRef.current,
+        start: "top -75px",
+        endTrigger: endRef.current,
+        end: "bottom 110%",
+        onEnter: () => html.classList.add("snap"),
+        onEnterBack: () => html.classList.add("snap"),
+        onLeaveBack: () => html.classList.remove("snap"),
+        onLeave: () => html.classList.remove("snap"),
+        onRefresh: (self) => {
+          if (self.isActive) html.classList.add("snap");
         },
       });
     });
+    const onResize = () => html.classList.remove("snap");
+    window.addEventListener("resize", onResize);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      window.removeEventListener("resize", onResize);
+      html.classList.remove("snap");
+    };
   }, []);
 
   return (
@@ -425,47 +467,59 @@ export default function Products() {
         </div>
       </div>
 
-      {/* pinned horizontal scroll container */}
-      <div
-        ref={pinRef}
-        style={{ height: "100vh", overflow: "hidden", position: "relative" }}
-      >
-        {/* track — 3 × 100vw */}
+      {/* container for fake & real scroll */}
+      <div ref={flickRef} className="relative">
+        {/* pinned horizontal scroll container */}
         <div
-          ref={trackRef}
-          style={{ display: "flex", width: "300vw", height: "100%" }}
+          ref={pinRef}
+          className="absolute w-full h-screen overflow-x-hidden"
         >
-          {categories.map((cat, i) => (
-            <HPanel key={cat.id} cat={cat} active={activePanel === i} />
-          ))}
+          {/* track — 3 × 100vw */}
+          <div
+            ref={trackRef}
+            className="flex w-fit h-full will-change-transform"
+          >
+            {categories.map((cat, i) => (
+              <HPanel key={cat.id} cat={cat} active={activePanel === i} />
+            ))}
+          </div>
+
+          {/* progress dots (inside pin so they stay visible) */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: 32,
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              gap: 10,
+              zIndex: 10,
+            }}
+          >
+            {categories.map((cat, i) => (
+              <div
+                key={cat.id}
+                style={{
+                  width: activePanel === i ? 24 : 8,
+                  height: 8,
+                  borderRadius: 4,
+                  backgroundColor:
+                    activePanel === i ? "#A80000" : "rgba(244,244,244,0.2)",
+                  transition: "all 0.3s ease",
+                }}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* progress dots */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 32,
-            left: "50%",
-            transform: "translateX(-50%)",
-            display: "flex",
-            gap: 10,
-            zIndex: 10,
-          }}
-        >
-          {categories.map((cat, i) => (
-            <div
-              key={cat.id}
-              style={{
-                width: activePanel === i ? 24 : 8,
-                height: 8,
-                borderRadius: 4,
-                backgroundColor:
-                  activePanel === i ? "#A80000" : "rgba(244,244,244,0.2)",
-                transition: "all 0.3s ease",
-              }}
-            />
-          ))}
-        </div>
+        {/* fake snap targets — must be in normal flow for scroll-snap */}
+        {categories.map((_, i) => (
+          <div
+            key={i}
+            ref={i === categories.length - 1 ? endRef : undefined}
+            className="h-screen snap-center snap-always"
+          />
+        ))}
       </div>
     </section>
   );

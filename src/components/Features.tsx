@@ -320,7 +320,7 @@ export default function Features() {
           </div>
           <h2
             className="font-display text-th-dark leading-none mb-5"
-            style={{ fontSize: "clamp(3rem, 8vw, 7.5rem)" }}
+            style={{ fontSize: "clamp(2.5rem, 5vw, 5rem)" }}
           >
             СДЕЛАНО <span className="text-th-red">НАДОЛГО</span>
           </h2>

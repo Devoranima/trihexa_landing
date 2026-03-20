@@ -21,27 +21,38 @@ html {
   overflow-x: hidden;
 }
 
+html.snap {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+
 body {
   background-color: var(--th-dark);
   color: var(--th-light);
   font-family: 'Inter', sans-serif;
-  overflow-x: hidden;
-  cursor: none;
 }
 
+/* 
 *:hover{
   cursor: none;
-}
+} */
 
 /* restore cursor on touch */
-@media (hover: none) {
+/* @media (hover: none) {
   body { cursor: auto; }
-}
+} */
 
 /* scrollbar */
-::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: var(--th-dark); }
-::-webkit-scrollbar-thumb { background: var(--th-red); border-radius: 2px; }
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 0, 0, 0.4);
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--th-red);
+}
 
 .logo-i{
   display: inline-block;
@@ -170,17 +181,10 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-.Ozon-link{
-  border-color: #005BFF;
-  &:hover{
-    background-color: #005BFF;
-  }
-}
-
-.Wildberries-link{
-  border-color: #CB11AB;
-  &:hover{
-    background-color: #CB11AB;
+.marketplace-link{
+  border-color: var(--marketplace-color);
+    &:hover{
+    background-color: var(--marketplace-color);
   }
 }
 

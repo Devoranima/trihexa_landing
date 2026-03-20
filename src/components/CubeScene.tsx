@@ -41,15 +41,15 @@ export default function CubeScene() {
 
     const loader = new THREE.TextureLoader();
 
-    const diamond_normal = loader.load('DiamondPlate008C_1K-JPG_NormalGL.jpg');
+    const diamond_normal = loader.load('assets/3d/DiamondPlate008C_1K-JPG_NormalGL.jpg');
     diamond_normal.wrapS = diamond_normal.wrapT = THREE.RepeatWrapping;
     diamond_normal.repeat.set(0.5, 0.5);
 
-    const tiles_normal = loader.load('TilesCeramicHerringbone002_NRM_1K.png');
+    const tiles_normal = loader.load('assets/3d/TilesCeramicHerringbone002_NRM_1K.png');
     tiles_normal.wrapS = tiles_normal.wrapT = THREE.RepeatWrapping;
     tiles_normal.repeat.set(0.5, 0.5);
 
-    const penny_normal = loader.load('TilesMosaicPennyround001_NRM_1K.png');
+    const penny_normal = loader.load('assets/3d/TilesMosaicPennyround001_NRM_1K.png');
     penny_normal.wrapS = penny_normal.wrapT = THREE.RepeatWrapping;
     penny_normal.repeat.set(0.5, 0.5);
 
@@ -231,9 +231,12 @@ export default function CubeScene() {
     let curSep = 0;
     let t = 0;
     let rafId: number;
+    let isVisible = true;
 
     function animate() {
       rafId = requestAnimationFrame(animate);
+      if (!isVisible) return;
+
       t += 0.016;
       autoY += 0.004;
 
@@ -269,6 +272,13 @@ export default function CubeScene() {
     }
     animate();
 
+    // pause render loop when off-screen
+    const io = new IntersectionObserver(
+      ([entry]) => { isVisible = entry.isIntersecting; },
+      { threshold: 0 },
+    );
+    io.observe(container);
+
     // resize
     const ro = new ResizeObserver(() => {
       const w = container.clientWidth;
@@ -282,6 +292,7 @@ export default function CubeScene() {
     // cleanup
     return () => {
       cancelAnimationFrame(rafId);
+      io.disconnect();
       scaleTween.kill();
       ro.disconnect();
       window.removeEventListener('mousemove', onMouse);

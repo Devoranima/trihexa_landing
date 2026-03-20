@@ -107,13 +107,13 @@ export default function Contact() {
           </div>
           <h2
             className="font-display text-th-white leading-none mb-4"
-            style={{ fontSize: 'clamp(3rem, 8vw, 7rem)' }}
+            style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)' }}
           >
             ГОТОВЫ <span className="text-th-red">ОСНАСТИТЬ</span>
           </h2>
           <h2
             className="font-display leading-none"
-            style={{ fontSize: 'clamp(3rem, 8vw, 7rem)', color: 'rgba(244,244,244,0.55)' }}
+            style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)', color: 'rgba(244,244,244,0.55)' }}
           >
             ВАШЕ ПРОСТРАНСТВО?
           </h2>

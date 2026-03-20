@@ -4,9 +4,21 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface MarketplaceData {
+  name: string,
+  color: string
+};
+
+const Maketplaces: Record<string, MarketplaceData> = {
+  "ozon": {name: "Ozon", color: "#005BFF"},
+  "wb": {name: "Wildberries", color: "#a73afd"},
+  "yandex": {name: "Yandex Market", color: "#ff5226"},
+}
+
 const ALL_PRODUCTS_LINKS: Record<string, string> = {
-  Ozon: "...",
-  Wildberries: "...",
+  "ozon": "https://ozon.ru/s/trihexa",
+  "wb": "https://www.wildberries.ru/brands/312113237-trihexa",
+  "yandex": "https://market.yandex.ru/cc/92PLmu"
 };
 
 /* types */
@@ -23,16 +35,16 @@ interface CategoryData {
   description: string;
   bg: string;
   products: Product[];
-  also?: string[];
+  link: string;
 }
 
 /* category data */
 const DATA: Record<string, CategoryData> = {
   car: {
-    label: "Автомобиль",
+    label: "для автомобиля",
     name: "Автоковрики",
     description:
-      "TPE и резина с точным кроем под каждую модель. Защита салона от грязи, воды и реагентов — круглый год.",
+      "TPE и резина по лекалам завода производителя под каждую модель. Защита салона от грязи, воды и реагентов — круглый год.",
     bg: "#0f0f10",
     products: [
       {
@@ -41,46 +53,52 @@ const DATA: Record<string, CategoryData> = {
         features: [
           "Бортики 30 мм",
           "TPE-полимер",
-          "Индивидуальный крой",
+          "Точное прилегание",
           "Простая установка",
         ],
         images: [
+          "mat_trunk_omada_perspective.webp",
           "mat_trunk_niva_legend.webp",
           "mat_trunk_travel.webp",
-          "mat_trunk_omada_perspective.webp",
           "mat_trunk_lada_perspective.webp",
         ],
       },
       {
-        name: "Коврик пассажира",
-        desc: "Точная подгонка под переднее пассажирское место. Надёжная фиксация и простой уход.",
+        name: "Коврик под детское кресло",
+        desc: "Защита сидений от пролитых жидкостей и крошек, а также от повреждений поверхности от сжатия.",
         features: [
-          "Точная подгонка",
-          "Нескользящая основа",
-          "Лёгкая чистка",
-          "Стойкость к реагентам",
+          "Универсальный размер",
+          "Не имеет запаха",
+          "Нетоксичен",
+          "Разные цвета"
         ],
-        
+        images: [
+          "mat_child_car_seat.webp",
+          "mat_child_car_seat_gray.webp",
+          "mat_child_car_seat_black.webp",
+        ]
       },
       {
-        name: "Коврик водителя",
-        desc: "Усиленная зона пятки для максимальной износостойкости. Антискользящий крепёж к полу автомобиля.",
+        name: "Коврик в салон",
+        desc: "Защита салона от грязи и износа. Надёжная фиксация и простой уход.",
         features: [
-          "Усиленная пятка",
-          "Антискользящий крепёж",
+          "Антискользящая основа",
+          "Высокие бортики",
           "Повышенная износостойкость",
-          "Точный крой",
+          "Точное прилегание",
         ],
         images: [
           "mat_driver_lada_vesta.webp",
           "mat_driver_duster.webp",
-          "mat_driver_duster_2.webp",
+          "mat_driver.webp",
+          "mat_passenger.webp",
         ],
       },
     ],
+    link:""
   },
   home: {
-    label: "Для дома",
+    label: "для дома",
     name: "Домашние коврики",
     description:
       "Каждый порог и угол — под контролем. Задерживающие грязь, моющиеся, долговечные коврики для любого помещения.",
@@ -88,48 +106,85 @@ const DATA: Record<string, CategoryData> = {
     products: [
       {
         name: "Входной коврик",
-        desc: "Грязезащитный коврик с дренажными каналами для зон с высокой проходимостью. Тонкий профиль не мешает двери, собирает влагу и грязь.",
+        desc: "Тонкий профиль не мешает двери, собирает влагу и грязь.",
         features: [
           "Грязезащитный",
-          "Дренажные каналы",
           "Тонкий профиль",
-          "Устойчив к влаге",
           "Моющийся",
         ],
         images: [
-          "mat_wave.webp",
-          "mat_door_boots_water.webp",
-          "mat_door_boots_snow.webp",
-          "mat_door_boots_snow_closeup.webp",
+          
         ],
       },
       {
         name: "Коврик под раковину",
         desc: "Водонепроницаемый коврик с поднятыми бортами. Защищает пол от протечек на кухне и в ванной.",
         features: [
-          "Водонепроницаемый",
           "Бортики от протечек",
           "Лёгкая установка",
           "Кухня / ванная",
+          "Универсальный размер"
         ],
         images: ["mat_sink.webp"],
       },
       {
         name: "Коврик для питомца",
-        desc: "Моющийся коврик, устойчивый к когтям и шерсти. Гипоаллергенный, не впитывает запахи.",
+        desc: "Моющийся коврик, устойчивый к когтям и шерсти.",
         features: [
-          "Устойчив к когтям",
+          "Высокая прочность",
           "Моющийся",
           "Гипоаллергенный",
           "Не впитывает запахи",
         ],
         images: ["mat_pet.webp", "mat_pet_bend.webp"],
       },
+      {
+        name: "Коврик антиусталость",
+        desc: "Помогает снять напряжение в теле, позволяя дольше стоять без усталости.",
+        features: [
+          "Универсальный",
+          "Снимает усталость",
+          "Нетоксичный"
+        ],
+        images: [
+
+        ]
+      },
+      {
+        name: "Коврик для обуви",
+        desc: "Большой коврик с дренажными каналами. Задерживает воду и грязь.",
+        features: [
+          "Дренажные каналы",
+          "Легко чистить",
+          "Бортики",
+          "Устойчик к реагентам"
+        ],
+        images: [
+          "mat_wave.webp",
+          "mat_shoes_water.webp",
+          "mat_shoes_snow.webp",
+          "mat_shoes_snow_closeup.webp",
+        ]
+      },
+      {
+        name: "Коврик в шкаф",
+        desc: "Для использования в жилых помещениях. Удерживает грязь и жидкости",
+        features: [
+          "Универсальный",
+          "Простая подгонка",
+          "Не имеет запаха",
+          "Разные цвета"
+        ],
+        images:[
+          "mat_closet.webp",
+          "mat_closet-1.webp"
+        ]
+      }
     ],
-    also: ["Коврик для шкафа", "Коврик в прихожую с ворсом"],
+    link:""
   },
   garage: {
-    label: "Гараж",
+    label: "для гаража",
     name: "Гаражные системы",
     description:
       "Промышленная защита пола от масла, реагентов и механических повреждений. Для гаража, мастерской и паркинга.",
@@ -169,6 +224,7 @@ const DATA: Record<string, CategoryData> = {
         images: ["antislip.webp"],
       },
     ],
+    link: ""
   },
 };
 
@@ -278,7 +334,7 @@ function ImageCarousel({ images, alt }: { images: string[]; alt: string }) {
             style={{ width: `${100 / count}%` }}
           >
             <img
-              src={"assets/" + src}
+              src={"/assets/" + src}
               alt={`${alt} — ${i + 1}`}
               loading="lazy"
               decoding="async"
@@ -412,18 +468,18 @@ export default function ProductPage({ category }: { category: string }) {
       );
 
       // product cards stagger
-      gsap.fromTo(
-        Array.from(gridRef.current?.children ?? []),
-        { y: 50, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: { trigger: gridRef.current, start: "top 80%" },
-        },
-      );
+      // gsap.fromTo(
+      //   Array.from(gridRef.current?.children ?? []),
+      //   { y: 50, opacity: 0 },
+      //   {
+      //     y: 0,
+      //     opacity: 1,
+      //     duration: 0.6,
+      //     stagger: 0.1,
+      //     ease: "power3.out",
+      //     scrollTrigger: { trigger: gridRef.current, start: "top 80%" },
+      //   },
+      // );
 
       // CTA
       gsap.fromTo(
@@ -487,6 +543,12 @@ export default function ProductPage({ category }: { category: string }) {
           <p className="hero-anim text-th-light/70 text-base lg:text-lg max-w-[50ch] leading-relaxed">
             {cat.description}
           </p>
+
+          <div className="">
+            <span>Каталог товаров Trihexa {cat.label}</span>
+
+          </div>
+
         </div>
       </section>
 
@@ -513,19 +575,20 @@ export default function ProductPage({ category }: { category: string }) {
                 Полный каталог
               </h3>
               <p className="text-th-light/35 text-sm">
-                Все товары TRIHEXA на маркетплейсах
+                Товары TRIHEXA на маркетплейсах
               </p>
             </div>
             <div className="flex flex-wrap gap-3 shrink-0">
-              {Object.entries(ALL_PRODUCTS_LINKS).map(([name, url]) => (
+              {Object.entries(ALL_PRODUCTS_LINKS).map(([id, url]) => (
                 <a
-                  key={name}
+                  key={id}
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${name}-link flex items-center gap-2 px-5 py-2.5 text-[0.7rem] tracking-[0.15em] border text-th-light/80 hover:text-white transition-all duration-200`}
+                  className={`marketplace-link flex items-center gap-2 px-5 py-2.5 text-[0.7rem] tracking-[0.15em] border text-th-light/80 hover:text-white transition-all duration-200`}
+                  style={{"--marketplace-color": Maketplaces[id].color} as React.CSSProperties}
                 >
-                  {name}
+                  {Maketplaces[id].name}
                   <svg viewBox="0 0 12 12" fill="none" className="w-3 h-3 opacity-40">
                     <path d="M4 2h6v6M10 2L3 9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
