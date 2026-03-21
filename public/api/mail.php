@@ -10,11 +10,11 @@
 header('Content-Type: application/json; charset=utf-8');
 
 // config
-define('MAIL_TO', 'ceo@trihexapro.ru');
+define('MAIL_TO', 'ginzzu_doc@mail.ru');
 define('MAIL_SUBJECT', 'Новая заявка с сайта TriHexa');
 define('ALLOWED_ORIGINS', [
-    'https://trihexapro.ru',
-    'https://www.trihexapro.ru',
+    'https://trihexa.ru',
+    'https://www.trihexa.ru',
     'http://localhost:4321',
     'http://localhost:3000',
 ]);
@@ -89,7 +89,7 @@ if ($interest !== '') {
 }
 $body .= "\nСообщение:\n$message\n";
 
-$headers  = "From: noreply@trihexapro.ru\r\n";
+$headers  = "From: noreply@trihexa.ru\r\n";
 $headers .= "Reply-To: $email\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
