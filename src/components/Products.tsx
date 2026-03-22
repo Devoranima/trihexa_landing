@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -461,7 +461,7 @@ export default function Products() {
             .fill(["АВТОКОВРИКИ", "ДЛЯ ДОМА", "ГАРАЖНЫЕ СИСТЕМЫ", "ТРИХЕКСА"])
             .flat()
             .map((t, i) => (
-              <>
+              <React.Fragment key={i}>
                 <span
                   key={i}
                   className="font-display text-th-light/15 text-xl tracking-widest whitespace-nowrap"
@@ -471,7 +471,7 @@ export default function Products() {
                 <span key={i + "dot"}>
                   <span className="text-th-red/40">·</span>
                 </span>
-              </>
+              </React.Fragment>
             ))}
         </div>
       </div>

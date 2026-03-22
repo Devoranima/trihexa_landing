@@ -8,7 +8,7 @@ const SITE = 'https://trihexa.ru';
 
 const {
   title,
-  description = 'TriHexa — Производство ковриков для автомобилей, дома и гаража. Качество в каждой детали.',
+  description = 'TRiHEXA — Производство ковриков для автомобилей, дома и гаража. Качество в каждой детали.',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, SITE).href;
@@ -20,20 +20,31 @@ const canonicalURL = new URL(Astro.url.pathname, SITE).href;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#A80000" />
-    <link rel="icon" type="image/svg+xml" href="/ICON.svg" />
-    <link rel="icon" type="image/png" href="/ICON.png" />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
 
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="TRiHEXA" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <!-- open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
-    <meta property="og:site_name" content="TriHexa" />
+    <meta property="og:site_name" content="TRiHEXA" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={`${SITE}/ICON.png`} />
+    <meta property="og:image" content={`${SITE}/og-image.jpg`} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content={`${SITE}/og-image.jpg`} />
+    <meta name="twitter:title" content="TRiHEXA" />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${SITE}/og-image.jpg`} />
 
     <title>{title}</title>
 

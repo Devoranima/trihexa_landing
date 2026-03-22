@@ -4,7 +4,6 @@ import CubeScene from './CubeScene';
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const eyebrowRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
@@ -22,11 +21,6 @@ export default function Hero() {
       tl.fromTo(accentARef.current,
         { scaleY: 0, transformOrigin: 'top center' },
         { scaleY: 1, duration: 1.1, ease: 'power3.out' }, 0);
-
-      /* eyebrow */
-      tl.fromTo(eyebrowRef.current,
-        { x: -60, opacity: 0 },
-        { x: 0,   opacity: 1, duration: 0.8, ease: 'power3.out' }, 0.1);
 
       /* title */
       tl.fromTo(titleRef.current,

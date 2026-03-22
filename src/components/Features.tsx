@@ -347,8 +347,8 @@ export default function Features() {
           ref={cardsRef}
           className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {features.map((f) => (
-            <Feature feature={f}/>
+          {features.map((f, i) => (
+            <Feature feature={f} key={i}/>
           ))}
         </div>
       </div>
