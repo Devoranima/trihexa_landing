@@ -23,12 +23,13 @@ export default function Nav() {
 
   /* scroll listener */
   useEffect(() => {
+    const scroller = document.getElementById('scroller');
+    if (!scroller) return;
     const onScroll = () => {
-      // setScrolled(window.scrollY > 60);
-      setShowTop(window.scrollY > 400);
+      setShowTop(scroller.scrollTop > 400);
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    scroller.addEventListener('scroll', onScroll, { passive: true });
+    return () => scroller.removeEventListener('scroll', onScroll);
   }, []);
 
   /* close dropdown on click outside */
@@ -227,7 +228,7 @@ export default function Nav() {
 
       {/* scroll to top */}
       <button
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onClick={() => document.getElementById('scroller')?.scrollTo({ top: 0, behavior: 'smooth' })}
         className={`fixed bottom-6 right-6 z-50 w-14 lg:w-20 aspect-square border border-th-red/40 bg-th-dark/80 backdrop-blur-sm text-th-red hover:bg-th-red hover:text-white flex items-center justify-center transition-all duration-300 ${
           showTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 pointer-events-none'
         }`}

@@ -452,6 +452,7 @@ export default function ProductPage({ category }: { category: string }) {
     return <div className="text-th-light p-20">Category not found.</div>;
 
   useEffect(() => {
+    const scroller = document.getElementById('scroller')!;
     const ctx = gsap.context(() => {
       // hero entrance
       gsap.fromTo(
@@ -467,20 +468,6 @@ export default function ProductPage({ category }: { category: string }) {
         },
       );
 
-      // product cards stagger
-      // gsap.fromTo(
-      //   Array.from(gridRef.current?.children ?? []),
-      //   { y: 50, opacity: 0 },
-      //   {
-      //     y: 0,
-      //     opacity: 1,
-      //     duration: 0.6,
-      //     stagger: 0.1,
-      //     ease: "power3.out",
-      //     scrollTrigger: { trigger: gridRef.current, start: "top 80%" },
-      //   },
-      // );
-
       // CTA
       gsap.fromTo(
         ctaRef.current,
@@ -490,7 +477,7 @@ export default function ProductPage({ category }: { category: string }) {
           opacity: 1,
           duration: 0.8,
           ease: "power3.out",
-          scrollTrigger: { trigger: ctaRef.current, start: "top 85%" },
+          scrollTrigger: { trigger: ctaRef.current, start: "top 85%", scroller },
         },
       );
     });

@@ -66,7 +66,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden bg-th-dark isolate"
+      className="relative min-h-[100dvh] overflow-hidden bg-th-dark isolate"
       id="hero"
     >
       {/* 3js canvas */}

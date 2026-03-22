@@ -17,21 +17,22 @@ export default function Contact() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const scroller = document.getElementById('scroller')!;
     const ctx = gsap.context(() => {
       gsap.fromTo(headingRef.current,
         { y: 60, opacity: 0 },
         { y: 0, opacity: 1, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: headingRef.current, start: 'top 80%' } });
+          scrollTrigger: { trigger: headingRef.current, start: 'top 80%', scroller } });
 
       gsap.fromTo(leftRef.current,
         { x: -70, opacity: 0 },
         { x: 0, opacity: 1, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: leftRef.current, start: 'top 75%' } });
+          scrollTrigger: { trigger: leftRef.current, start: 'top 75%', scroller } });
 
       gsap.fromTo(rightRef.current,
         { x: 70, opacity: 0 },
         { x: 0, opacity: 1, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: rightRef.current, start: 'top 75%' } });
+          scrollTrigger: { trigger: rightRef.current, start: 'top 75%', scroller } });
     }, sectionRef);
 
     return () => ctx.revert();

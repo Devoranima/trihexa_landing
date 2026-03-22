@@ -272,7 +272,7 @@ const HPanel = memo(function HPanel({
 
   return (
     <div
-      className="flex-shrink-0 h-screen w-screen flex items-center relative overflow-hidden"
+      className="flex-shrink-0 h-[100dvh] w-screen flex items-center relative overflow-hidden"
       style={{ minWidth: "100vw", backgroundColor: cat.bg }}
     >
       <div
@@ -354,7 +354,7 @@ export default function Products() {
   const activePanelRef = useRef(0);
 
   useEffect(() => {
-    const html = document.documentElement;
+    const scroller = document.getElementById("scroller")!;
     const ctx = gsap.context(() => {
       /* header reveal */
       gsap.fromTo(
@@ -365,26 +365,30 @@ export default function Products() {
           opacity: 1,
           duration: 1,
           ease: "power3.out",
-          scrollTrigger: { trigger: headerRef.current, start: "top 80%" },
+          scrollTrigger: { trigger: headerRef.current, start: "top 80%", scroller },
         },
       );
 
       /* horizontal scroll animation */
       const animation = gsap.to(trackRef.current, {
         xPercent: -(2/3) * 100,
-        duration: 5,
+        // duration: 5,
         ease: "none",
       });
 
-      // ST1: pin + scrub
       ScrollTrigger.create({
-        trigger: pinRef.current,
-        start: "top 0%",
+        // trigger: pinRef.current,
+        trigger: flickRef.current,
+        // start: "top 0%",
+        start: "top top",
         endTrigger: endRef.current,
-        end: "bottom 100%",
-        pin: true,
+        // end: "bottom 100%",
+        end: "bottom bottom",
+        // pin: true,
+        // anticipatePin: 1,
         animation: animation,
         scrub: 1,
+        scroller,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
           const panel = Math.round(self.progress * 2);
@@ -395,28 +399,33 @@ export default function Products() {
         },
       });
 
-      // ST2: toggle scroll-snap on <html>
+      // ST2: toggle scroll-snap on #scroller
       ScrollTrigger.create({
         trigger: flickRef.current,
-        start: "top -75px",
+        // start: "top -75px",
+        start: "top top",
+
         endTrigger: endRef.current,
-        end: "bottom 110%",
-        onEnter: () => html.classList.add("snap"),
-        onEnterBack: () => html.classList.add("snap"),
-        onLeaveBack: () => html.classList.remove("snap"),
-        onLeave: () => html.classList.remove("snap"),
+        // end: "bottom 110%",
+        end: "bottom bottom",
+
+        scroller,
+        onEnter: () => scroller.classList.add("snap"),
+        onEnterBack: () => scroller.classList.add("snap"),
+        onLeaveBack: () => scroller.classList.remove("snap"),
+        onLeave: () => scroller.classList.remove("snap"),
         onRefresh: (self) => {
-          if (self.isActive) html.classList.add("snap");
+          if (self.isActive) scroller.classList.add("snap");
         },
       });
     });
-    const onResize = () => html.classList.remove("snap");
+    const onResize = () => scroller.classList.remove("snap");
     window.addEventListener("resize", onResize);
 
     return () => {
       ctx.revert();
       window.removeEventListener("resize", onResize);
-      html.classList.remove("snap");
+      scroller.classList.remove("snap");
     };
   }, []);
 
@@ -467,12 +476,11 @@ export default function Products() {
         </div>
       </div>
 
-      {/* container for fake & real scroll */}
       <div ref={flickRef} className="relative">
-        {/* pinned horizontal scroll container */}
         <div
           ref={pinRef}
-          className="absolute w-full h-screen overflow-x-hidden"
+          // className="absolute w-full h-[100dvh] overflow-x-hidden"
+          className="sticky top-0 w-full h-[100dvh] overflow-x-hidden z-10"
         >
           {/* track — 3 × 100vw */}
           <div
@@ -484,7 +492,7 @@ export default function Products() {
             ))}
           </div>
 
-          {/* progress dots (inside pin so they stay visible) */}
+          {/* progress dots */}
           <div
             style={{
               position: "absolute",
@@ -512,12 +520,14 @@ export default function Products() {
           </div>
         </div>
 
-        {/* fake snap targets — must be in normal flow for scroll-snap */}
+        {/* fake snap targets for panels 2 & 3 */}
         {categories.map((_, i) => (
           <div
             key={i}
             ref={i === categories.length - 1 ? endRef : undefined}
-            className="h-screen snap-center snap-always"
+            className="h-[100dvh] snap-center snap-always"
+
+            style={{ marginTop: i === 0 ? "-100dvh" : undefined }}
           />
         ))}
       </div>

@@ -16,14 +16,10 @@
 /* base */
 *, *::before, *::after { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-}
-
-html.snap {
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
+html, body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
 }
 
 body {
@@ -32,25 +28,27 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-/* 
-*:hover{
-  cursor: none;
-} */
+#scroller {
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  scroll-behavior: smooth;
+}
 
-/* restore cursor on touch */
-/* @media (hover: none) {
-  body { cursor: auto; }
-} */
+#scroller.snap {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: auto;
+}
 
 /* scrollbar */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--th-dark); }
-::-webkit-scrollbar-thumb {
+#scroller::-webkit-scrollbar { width: 8px; }
+#scroller::-webkit-scrollbar-track { background: var(--th-dark); }
+#scroller::-webkit-scrollbar-thumb {
   background: rgba(168, 0, 0, 0.4);
   border-radius: 2px;
   transition: background 0.3s;
 }
-::-webkit-scrollbar-thumb:hover {
+#scroller::-webkit-scrollbar-thumb:hover {
   background: var(--th-red);
 }
 

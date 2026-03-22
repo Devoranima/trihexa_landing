@@ -157,6 +157,7 @@ function useCounter(target: number, trigger: Element | null) {
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     if (!ref.current || !trigger) return;
+    const scroller = document.getElementById('scroller')!;
     const obj = { val: 0 };
     const anim = gsap.to(obj, {
       val: target,
@@ -166,7 +167,7 @@ function useCounter(target: number, trigger: Element | null) {
         if (ref.current)
           ref.current.textContent = Math.round(obj.val).toString();
       },
-      scrollTrigger: { trigger, start: "top 75%", once: true },
+      scrollTrigger: { trigger, start: "top 75%", once: true, scroller },
     });
     return () => {
       anim.kill();
@@ -253,6 +254,7 @@ export default function Features() {
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const scroller = document.getElementById('scroller')!;
     const ctx = gsap.context(() => {
       /* header */
       gsap.fromTo(
@@ -263,7 +265,7 @@ export default function Features() {
           opacity: 1,
           duration: 1,
           ease: "power3.out",
-          scrollTrigger: { trigger: headerRef.current, start: "top 80%" },
+          scrollTrigger: { trigger: headerRef.current, start: "top 80%", scroller },
         },
       );
 
@@ -277,7 +279,7 @@ export default function Features() {
           duration: 0.7,
           stagger: 0.15,
           ease: "power3.out",
-          scrollTrigger: { trigger: statsRef.current, start: "top 78%" },
+          scrollTrigger: { trigger: statsRef.current, start: "top 78%", scroller },
         },
       );
 
@@ -291,7 +293,7 @@ export default function Features() {
           duration: 0.65,
           stagger: 0.1,
           ease: "power3.out",
-          scrollTrigger: { trigger: cardsRef.current, start: "top 75%" },
+          scrollTrigger: { trigger: cardsRef.current, start: "top 75%", scroller },
         },
       );
     }, sectionRef);

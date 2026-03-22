@@ -63,6 +63,24 @@ const canonicalURL = new URL(Astro.url.pathname, SITE).href;
     />
   </head>
   <body>
-    <slot />
+    <div id="scroller">
+      <slot />
+    </div>
+    <script>
+      // Handle anchor links since #scroller is the scroll container, not the viewport
+      document.addEventListener('click', (e) => {
+        const link = (e.target as HTMLElement).closest('a[href*="#"]');
+        if (!link) return;
+        const href = link.getAttribute('href');
+        if (!href) return;
+        const hash = href.includes('#') ? href.split('#')[1] : null;
+        if (!hash) return;
+        const target = document.getElementById(hash);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+        history.pushState(null, '', `#${hash}`);
+      });
+    </script>
   </body>
 </html>
