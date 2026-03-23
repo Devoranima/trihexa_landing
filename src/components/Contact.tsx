@@ -133,8 +133,8 @@ export default function Contact() {
               {[
                 {
                   label: 'Почта',
-                  value: 'ceo@trihexapro.ru',
-                  href:  'mailto:ceo@trihexapro.ru',
+                  value: 'ceo@trihexa.ru',
+                  href:  'mailto:ceo@trihexa.ru',
                   icon:  (
                     <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5 shrink-0">
                       <rect x="2" y="5" width="16" height="12" rx="1" stroke="#A80000" strokeWidth="1.3" />

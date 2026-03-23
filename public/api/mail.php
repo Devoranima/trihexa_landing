@@ -10,7 +10,7 @@
 header('Content-Type: application/json; charset=utf-8');
 
 // config
-define('MAIL_TO', 'ceo@trihexapro.ru');
+define('MAIL_TO', 'ceo@trihexa.ru');
 define('MAIL_SUBJECT', 'Новая заявка с сайта TriHexa');
 define('ALLOWED_ORIGINS', [
     'https://trihexa.ru',
