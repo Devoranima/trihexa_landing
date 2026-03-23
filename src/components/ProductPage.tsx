@@ -57,10 +57,10 @@ const DATA: Record<string, CategoryData> = {
           "Простая установка",
         ],
         images: [
+          "mat_trunk_lada_perspective.webp",
           "mat_trunk_omada_perspective.webp",
           "mat_trunk_niva_legend.webp",
           "mat_trunk_travel.webp",
-          "mat_trunk_lada_perspective.webp",
         ],
       },
       {
@@ -106,14 +106,14 @@ const DATA: Record<string, CategoryData> = {
     products: [
       {
         name: "Входной коврик",
-        desc: "Тонкий профиль не мешает двери, собирает влагу и грязь.",
+        desc: "Бортики по периметру, собирает влагу и грязь.",
         features: [
           "Грязезащитный",
-          "Тонкий профиль",
+          "Бортики по периметру",
           "Моющийся",
         ],
         images: [
-          
+          "mat_entrance.webp"
         ],
       },
       {

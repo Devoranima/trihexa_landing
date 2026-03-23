@@ -769,7 +769,7 @@ export default function Products() {
           ЧТО МЫ <span className="text-th-red">ДЕЛАЕМ</span>
         </h2>
         <p className="text-th-light/40 text-sm mt-4 max-w-[50ch] leading-relaxed">
-          Три направления — один стандарт качества. Каждый коврик кроится,
+          Три направления — один стандарт качества. Каждый коврик проектируется,
           обрабатывается и проходит контроль с точностью до миллиметра.
         </p>
       </div>
