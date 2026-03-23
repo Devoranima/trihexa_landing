@@ -3,4 +3,4 @@ Allow: /
 
 Disallow: /api/
 
-Sitemap: https://trihexapro.ru/sitemap.xml
+Sitemap: https://trihexa.ru/sitemap.xml
