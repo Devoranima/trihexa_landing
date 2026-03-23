@@ -492,7 +492,7 @@ export default function ProductPage({ category }: { category: string }) {
         className="relative min-h-[60vh] flex items-end overflow-hidden"
         style={{ backgroundColor: cat.bg }}
       >
-        <div className="absolute inset-0 hex-pattern grid-pattern opacity-30" />
+        <div className="absolute inset-0 grid-pattern opacity-30" />
         <div className="absolute inset-0 bg-gradient-to-t from-th-dark via-transparent to-transparent" />
 
         <div
@@ -530,12 +530,6 @@ export default function ProductPage({ category }: { category: string }) {
           <p className="hero-anim text-th-light/70 text-base lg:text-lg max-w-[50ch] leading-relaxed">
             {cat.description}
           </p>
-
-          <div className="">
-            <span>Каталог товаров Trihexa {cat.label}</span>
-
-          </div>
-
         </div>
       </section>
 
