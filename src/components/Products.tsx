@@ -430,34 +430,34 @@ const GarageScheme = memo(
         />
         <path
           fill={hoveredIdx == "antislip" ? "#ff0000" : "#660000"}
-          onMouseEnter={() => setHoveredIdx("pet")}
+          onMouseEnter={() => setHoveredIdx("antislip")}
           style={{ transition: "fill 0.3s" }}
           d="m114.405 284.508 5.374-3.098q.048.705.077 1.412l.987-.57 7.765 4.483-20.017 11.555-38.503-21.953a21.3 21.3 0 0 0-1.32-6.469 5.18 5.18 0 0 0-3.42-3.164l-8.953-2.702v-6.938a5.73 5.73 0 0 0-2.206-4.52 20 20 0 0 0-1.637-1.16v-21.815l29.259 16.893.23 2.634 2.639 4.57 8.822 10.513.864-.499a30.1 30.1 0 0 0 3.94 12.389 21.5 21.5 0 0 0 9.814 8.837 6.78 6.78 0 0 0 6.285-.398"
         />
         <path
           fill={hoveredIdx == "antislip" ? "#ff0000" : "#660000"}
-          onMouseEnter={() => setHoveredIdx("pet")}
+          onMouseEnter={() => setHoveredIdx("antislip")}
           style={{ transition: "fill 0.3s" }}
           stroke="#fff"
           d="m123.636 195.038-18.781-10.843-31.213 18.021 18.842 10.878a129.5 129.5 0 0 1 31.152-18.056Z"
         />
         <path
           fill={hoveredIdx == "bumper" ? "#ff0000" : "#660000"}
-          onMouseEnter={() => setHoveredIdx("pet")}
+          onMouseEnter={() => setHoveredIdx("bumper")}
           style={{ transition: "fill 0.3s" }}
           stroke="#fff"
           d="m229.766 334.618 24.329 13.873 35.301-20.382-19.147-11.058a103.9 103.9 0 0 1-40.483 17.567Z"
         />
         <path
           fill={hoveredIdx == "lines" ? "#ff0000" : "#660000"}
-          onMouseEnter={() => setHoveredIdx("pet")}
+          onMouseEnter={() => setHoveredIdx("lines")}
           style={{ transition: "fill 0.3s" }}
           stroke="#fff"
           d="m299.836 330.423 17.16-9.908-36.374-22.239-.301 5.752a11.92 11.92 0 0 1-4.278 8.537q-1.474 1.227-2.988 2.395z"
         />
         <path
           fill={hoveredIdx == "lines" ? "#ff0000" : "#660000"}
-          onMouseEnter={() => setHoveredIdx("pet")}
+          onMouseEnter={() => setHoveredIdx("lines")}
           style={{ transition: "fill 0.3s" }}
           stroke="#fff"
           d="M189.391 321.134a30 30 0 0 0 3.631 10.023 21.48 21.48 0 0 0 9.814 8.836 6.76 6.76 0 0 0 4.734.297l1.555-.698 7.457-4.305 7.511.032 33.631 19.415-18.441 10.65-111.686-64.483 12.774-7.375 48.419 27.955z"
