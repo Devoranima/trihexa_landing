@@ -147,7 +147,8 @@ const DATA: Record<string, CategoryData> = {
           "Нетоксичный"
         ],
         images: [
-
+          "antistress.webp",
+          "antistress_black.webp",
         ]
       },
       {
